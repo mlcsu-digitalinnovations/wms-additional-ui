@@ -1,0 +1,71 @@
+﻿@model WmsMskReferral.Models.ConsentNHSNumberGPPracticeViewModel
+@using WmsReferral.Business.Helpers
+
+@{
+    ViewData["Title"] = "NHS Number / GP Practice lookup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+        
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <h1 class="nhsuk-heading-l">Section 1: Checking the patient's eligibility</h1>
+                <form asp-action="consent-nhsnumber">
+                    <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6">
+                        
+                        <h2 class="nhsuk-heading-m">
+                            <label class="nhsuk-label nhsuk-label--m">
+                                Has the patient consented for you to look up their NHS number and GP practice name? Without this consent you cannot progress
+                            </label>
+                        </h2>
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", hasErrors)">
+                            <details class="nhsuk-details">
+                                <summary class="nhsuk-details__summary">
+                                    <span class="nhsuk-details__summary-text">
+                                        Why are we asking this?
+                                    </span>
+                                </summary>
+                                <div class="nhsuk-details__text">
+                                    <p>You need the patient’s consent to perform NHS number and GP Practice searches.</p>
+                                </div>
+                            </details>
+                            <span class="nhsuk-error-message" id="input-with-error-message-error">
+                                <span asp-validation-for="ConsentToLookups"></span>
+                            </span>
+
+                            <div class="nhsuk-radios">
+                                @for (int i = 0; i < Model.ConsentYNList.Count(); i++)
+                                {
+                                    var ynGroup = Model.ConsentYNList.ElementAt(i);
+
+                                    <div class="nhsuk-radios__item">
+                                        <input class="nhsuk-radios__input"
+                                               role="radio"
+                                               id="yn-group-option-@i"
+                                               asp-for="ConsentToLookups"
+                                               type="radio"
+                                               value=@ynGroup.Key />
+                                        <label class="nhsuk-label nhsuk-radios__label" for="yn-group-option-@i">
+                                            @ynGroup.Value
+                                        </label>
+                                    </div>}
+
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <input type="submit" value="Continue" class="nhsuk-button" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

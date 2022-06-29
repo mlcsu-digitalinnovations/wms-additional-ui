@@ -1,0 +1,19 @@
+﻿@{ 
+   ViewData["Title"] = "No providers available";
+   Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <h1 class="nhsuk-label-wrapper">
+                    <span class="nhsuk-label nhsuk-label--l">
+                        No providers available
+                    </span>
+                </h1>
+                <p>Sorry, there are no weight management providers available at this time. Please come back tomorrow.</p>
+                <p><a class="nhsuk-button" asp-action="index" asp-controller="SelfReferral">Continue</a></p>
+            </div>
+        </div>
+    </div>
+</div>

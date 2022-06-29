@@ -1,0 +1,31 @@
+﻿@{ 
+   ViewData["Title"] = "Criteria not met";
+   Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <h1 class="nhsuk-card__heading nhsuk-label--l">Sorry referrals require your NHS email address</h1>
+                <p>
+                    We’re sorry that the email address you’ve entered has not been recognised as an NHS email address. Please try again and make sure you are using your NHS work email address and this is entered correctly.
+                </p>
+                <p>
+                    If the email address is still not recognised, email us at <a href="mailto:england.wmp-prevention@nhs.net">england.wmp-prevention@nhs.net</a> from your NHS email address letting us know your place of work, and we will endeavour to review your eligibility for this programme.
+                </p>
+                <p>
+                    Thank you
+                </p>
+                <div class="nhsuk-action-link">
+                    <a class="nhsuk-action-link__link" asp-action="index" asp-controller="StaffReferral">
+                        <svg class="nhsuk-icon nhsuk-icon__arrow-right-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M12 2a10 10 0 0 0-9.95 9h11.64L9.74 7.05a1 1 0 0 1 1.41-1.41l5.66 5.65a1 1 0 0 1 0 1.42l-5.66 5.65a1 1 0 0 1-1.41 0 1 1 0 0 1 0-1.41L13.69 13H2.05A10 10 0 1 0 12 2z"></path>
+                        </svg>
+                        <span class="nhsuk-action-link__text">Try again</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <UserSecretsId>0ac3e439-291e-4f1d-a252-d28cd67e6f5e</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/f19f2c2a-9c2b-48d7-9e49-6890fb90f79f/resourceGroups/rg-app-nhseiwmsstaffreferral-uks-pre-1/providers/microsoft.insights/components/app-nhseiwmsstaffreferral-uks-pre-1</ApplicationInsightsResourceId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Business\**" />
+    <Compile Remove="Services\**" />
+    <Content Remove="Business\**" />
+    <Content Remove="Services\**" />
+    <EmbeddedResource Remove="Business\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Business\**" />
+    <None Remove="Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+    <Content Remove="wwwroot\lib\timeout\referralTimeout.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
+    <None Include="wwwroot\assets\favicons\favicon.svg" />
+    <None Include="wwwroot\assets\icons\icon-arrow-left.svg" />
+    <None Include="wwwroot\assets\icons\icon-arrow-right-circle.svg" />
+    <None Include="wwwroot\assets\icons\icon-arrow-right.svg" />
+    <None Include="wwwroot\assets\icons\icon-chevron-left.svg" />
+    <None Include="wwwroot\assets\icons\icon-chevron-right.svg" />
+    <None Include="wwwroot\assets\icons\icon-close.svg" />
+    <None Include="wwwroot\assets\icons\icon-cross.svg" />
+    <None Include="wwwroot\assets\icons\icon-emdash-small.svg" />
+    <None Include="wwwroot\assets\icons\icon-emdash.svg" />
+    <None Include="wwwroot\assets\icons\icon-minus.svg" />
+    <None Include="wwwroot\assets\icons\icon-plus.svg" />
+    <None Include="wwwroot\assets\icons\icon-search.svg" />
+    <None Include="wwwroot\assets\icons\icon-tick.svg" />
+    <None Include="wwwroot\assets\logos\logo-nhs.svg" />
+    <None Include="wwwroot\lib\timeout\referralTimeout.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.20.0" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="6.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\css\layout\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WmsReferral.Business\WmsReferral.Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Shared\Error.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\StaffReferral\NotEligibleBMI.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\StaffReferral\Weight.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\StaffReferral\WeightImperial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

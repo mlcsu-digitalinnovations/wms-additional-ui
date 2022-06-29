@@ -1,0 +1,223 @@
+﻿@model WmsReferral.Business.Models.WeightImperialViewModel
+@using WmsReferral.Business.Helpers
+@{
+    ViewData["Title"] = "What is your weight?";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+    bool weightStError = false;
+    bool weightLbError = false;
+
+    bool weightError = false;
+
+    bool dayError = false;
+    bool monthError = false;
+    bool yearError = false;
+    bool dateError = false;
+
+    if (hasErrors)
+    {
+        if (ViewData.ModelState["WeightSt"].Errors.Any())
+        {
+            weightStError = true;
+        }
+        if (ViewData.ModelState["WeightLb"].Errors.Any())
+        {
+            weightLbError = true;
+        }
+        if (ViewData.ModelState.ContainsKey("WeightError"))
+        {
+            if (ViewData.ModelState["WeightError"].Errors.Any())
+            {
+                weightError = true;
+            }
+        }
+
+        if (ViewData.ModelState["Day"].Errors.Any())
+        {
+            dayError = true;
+        }
+        if (ViewData.ModelState["Month"].Errors.Any())
+        {
+            monthError = true;
+        }
+        if (ViewData.ModelState["Year"].Errors.Any())
+        {
+            yearError = true;
+        }
+        if (ViewData.ModelState.ContainsKey("DateError"))
+        {
+            if (ViewData.ModelState["DateError"].Errors.Any())
+            {
+                dateError = true;
+            }
+        }
+    }
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+        <div class="nhsuk-back-link">
+            <a class="nhsuk-back-link__link" asp-action="height-imperial">
+                <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+                </svg>
+                Go back
+            </a>
+        </div>
+
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <form asp-action="weight-imperial" method="post" id="formWeight">
+                    @if (hasErrors)
+                    {
+                        <div class="nhsuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1">
+                            <h2 class="nhsuk-error-summary__title" id="error-summary-title">
+                                There is a problem
+                            </h2>
+                            <div class="nhsuk-error-summary__body">
+                                <div asp-validation-summary="ModelOnly"></div>
+                                @foreach (var error in ViewData.ModelState.Values.SelectMany(e => e.Errors))
+                                {
+                                    <span class="field-validation-error">@error.ErrorMessage</span>
+                                }
+                            </div>
+                        </div>
+                    }
+                    <h1 class="nhsuk-heading-l">
+                        Your weight
+                    </h1>
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", weightError)">
+                        <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6"
+                                  role="group">
+                            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                What is your weight in stones and pounds?
+                            </legend>
+
+
+
+                            <details class="nhsuk-details">
+                                <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text0" tabindex="0" aria-expanded="false">
+                                    <span class="nhsuk-details__summary-text">
+                                        Why are we asking?
+                                    </span>
+                                </summary>
+                                <div class="nhsuk-details__text" id="nhsuk-details__text0" aria-hidden="true">
+                                    <p>We need your weight so that we can calculate your BMI to check you are eligible for the programme.</p>
+
+                                </div>
+                            </details>
+                            <span class="nhsuk-error-message" id="dob-errors-error">                                
+                                <span asp-validation-for="WeightSt"></span>
+                                <span asp-validation-for="WeightLb"></span>
+
+                            </span>
+
+                            <div class="nhsuk-date-input" id="dob">
+                                <div class="nhsuk-date-input__item">
+                                    <div class="nhsuk-form-group">
+                                        <label class="nhsuk-label nhsuk-date-input__label"
+                                               asp-for="WeightSt">
+                                        </label>
+                                        <input class="@NhsFormHelper.GetFormElementClasses("date", weightStError) nhsuk-input--width-3"
+                                               asp-for="WeightSt"
+                                               type="number"
+                                               pattern="[0-9]*"
+                                               autocomplete="off" 
+                                               inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="nhsuk-date-input__item">
+                                    <div class="nhsuk-form-group">
+                                        <label class="nhsuk-label nhsuk-date-input__label"
+                                               asp-for="WeightLb">
+                                        </label>
+                                        <input class="@NhsFormHelper.GetFormElementClasses("date", weightLbError) nhsuk-input--width-3"
+                                               asp-for="WeightLb"
+                                               type="text"
+                                               autocomplete="off" 
+                                               >
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", dateError)">
+                        <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6"                                  
+                                  role="group">
+                            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                Date of your <b>weight</b> measurement?
+                            </legend>
+
+                            <span class="nhsuk-error-message" id="weight-errors-error">
+                               
+
+                                <span asp-validation-for="Day"></span>
+                                <span asp-validation-for="Month"></span>
+                                <span asp-validation-for="Year"></span>
+                                @if (dateError)
+                                {
+                                    dayError = true;
+                                    monthError = true;
+                                    yearError = true;
+                                    <span class="field-validation-error">@ViewData.ModelState["DateError"].Errors.First().ErrorMessage</span>
+                                }
+                            </span>
+
+                            <div class="nhsuk-date-input" id="weight">
+                                <div class="nhsuk-date-input__item">
+                                    <div class="nhsuk-form-group">
+                                        <label class="nhsuk-label nhsuk-date-input__label"
+                                               asp-for="Day">
+                                        </label>
+                                        <input class="@NhsFormHelper.GetFormElementClasses("date", dayError) nhsuk-input--width-2"
+                                               asp-for="Day"
+                                               type="text"
+                                               pattern="[0-9]*"
+                                               autocomplete="off" 
+                                               inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="nhsuk-date-input__item">
+                                    <div class="nhsuk-form-group">
+                                        <label class="nhsuk-label nhsuk-date-input__label"
+                                               asp-for="Month">
+                                        </label>
+                                        <input class="@NhsFormHelper.GetFormElementClasses("date", monthError) nhsuk-input--width-2"
+                                               asp-for="Month"
+                                               type="text"
+                                               pattern="[0-9]*"
+                                               autocomplete="off" 
+                                               inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="nhsuk-date-input__item">
+                                    <div class="nhsuk-form-group">
+                                        <label class="nhsuk-label nhsuk-date-input__label"
+                                               asp-for="Year">
+                                        </label>
+                                        <input class="@NhsFormHelper.GetFormElementClasses("date", yearError) nhsuk-input--width-4"
+                                               asp-for="Year"
+                                               type="text"
+                                               pattern="[0-9]*"
+                                               autocomplete="off" 
+                                               inputmode="numeric">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+
+                    <input type="submit" value="Continue" class="nhsuk-button nhsuk-u-margin-right-2" />
+                    <a class="nhsuk-button nhsuk-button--secondary" asp-action="weight">Switch to kilograms</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,156 @@
+﻿@model WmsReferral.Business.Models.ProviderChoiceModel
+
+@{ 
+    ViewData["Title"] = "Your Service Choices";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <form method="post"                     
+                      asp-action="provider-choice"
+                      >
+                    <input type="hidden" asp-for="Ubrn" />
+                    <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6"
+                              aria-describedby="serviceuser-provider-hint"
+                              aria-labelledby="serviceuser-provider-label">
+                        <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+                            <h1 class="nhsuk-fieldset__heading" id="serviceuser-provider-label">
+                                Services for you
+                            </h1>
+                        </legend>
+                        <div class="nhsuk-form-group">
+
+                            <div class="nhsuk-hint" id="serviceuser-provider-hint">
+                                Select a service name to find out what the service offers
+                            </div>
+
+                            <span class="nhsuk-error-message">
+                                <span class="nhsuk-u-visually-hidden">Error:</span>
+                                <span asp-validation-for="ProviderId"></span>
+                            </span>
+                            <div class="nhsuk-expander-group">
+
+                                @for (int i = 0; i < Model.ProviderChoices.Count; i++)
+                                {
+                                    var provider = Model.ProviderChoices[i];
+
+                    <div>
+                        <input type="hidden"
+                               name="Providers[@i].Name"
+                               value="@Model.ProviderChoices[i].Name" />
+                        <input type="hidden"
+                               name="Providers[@i].Id"
+                               value="@Model.ProviderChoices[i].Id" />
+
+
+                        <details class="nhsuk-details nhsuk-expander serviceuser-provider-detail-box">
+                            <summary class="nhsuk-details__summary">
+                                <h2 class="nhsuk-details__summary-text">
+                                    @provider.Name
+                                </h2>
+                            </summary>
+                            <div class="nhsuk-details__text">
+
+                                @* Summary *@
+                                <div class="nhsuk-grid-row serviceuser-provider-row">
+                                    <div class="nhsuk-grid-column-full">
+                                        @if (provider.Logo != null)
+                                        {
+                        <div class="serviceuser-provider-logo-wrapper">
+                            <img class="serviceuser-provider-logo" src="@provider.Logo" alt="@provider.Name logo" width="128" height="128" />
+
+                        </div>}
+                                        <p>@Html.Raw(@provider.Summary)</p>
+                                    </div>
+                                </div>
+
+                                <hr class="serviceuser-provider-hr" />
+
+                                @* Radio button *@
+                                <div class="nhsuk-grid-row">
+                                    <div class="nhsuk-grid-column-one-half">
+                                        <div class="nhsuk-form-group">
+
+                                            <fieldset class="nhsuk-fieldset" aria-describedby="hint-@provider.Id">
+                                                <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                                    Use this service?
+                                                </legend>
+
+                                                <div class="nhsuk-hint" id="hint-@provider.Id">
+                                                    Click the button below to select this service.
+                                                </div>
+
+                                                <div class="nhsuk-radios">
+                                                    <div class="nhsuk-radios__item">
+                                                        <input class="nhsuk-radios__input"
+                                                               role="radio"
+                                                               id="contact-@provider.Id"
+                                                               asp-for="ProviderId"
+                                                               type="radio"
+                                                               value=@provider.Id
+                                                               aria-controls="conditional-contact-@provider.Id"
+                                                               aria-expanded="false"
+                                                               data-provider-Name="@provider.Name">
+                                                        <label class="nhsuk-label nhsuk-radios__label" for="contact-@provider.Id">
+                                                            Select @provider.Name
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <a href="#confirm-choice" class="nhsuk-link nhsuk-link--no-visited-state">&#9660; Scroll to continue button</a>
+
+                                            </fieldset>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>}
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    @* Show selected service *@
+                    <a name="confirm-choice"></a>
+                    <div class="nhsuk-inset-text hidden" id="serviceuser-provider-selected-wrapper">
+                        <span class="nhsuk-u-visually-hidden">Information: </span>
+                        <p>You have chosen: <span id="serviceuser-provider-selected-display" class="nhsuk-u-font-weight-bold"></span>. Use the button below to select this service or select another service from the list above.</p>
+                    </div>
+
+                    <input type="submit" value="Choose service and continue" class="nhsuk-button" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $('.serviceuser-provider-detail-box input[type="radio"]').each(function () {
+                if ($(this).is(':checked')) {
+                    findServiceName($(this));
+                }
+            });
+
+            if ($('#serviceuser-provider-selected-display').text() != "") {
+                $('#serviceuser-provider-selected-wrapper').removeClass('hidden');
+            }
+
+
+            $('.serviceuser-provider-detail-box .nhsuk-radios__input').click(function () {
+                findServiceName($(this));
+            });
+
+            function findServiceName(selected) {
+                var selectedService = $(selected).data('provider-name');
+                $('#serviceuser-provider-selected-display').text(selectedService);
+                $('#serviceuser-provider-selected-wrapper').removeClass('hidden');
+            }
+        });</script>
+}
+
