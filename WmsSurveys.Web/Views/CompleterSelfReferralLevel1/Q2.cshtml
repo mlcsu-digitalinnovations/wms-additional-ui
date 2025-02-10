@@ -1,0 +1,360 @@
+﻿@model WmsReferral.Business.Models.QuestionsViewModel
+@using WmsReferral.Business.Helpers
+@{
+    ViewData["Title"] = "Q2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+    bool questionAerror = false;
+    bool questionBerror = false;
+    bool questionCerror = false;
+    bool questionDerror = false;
+    bool questionEerror = false;
+    bool questionFerror = false;
+    bool questionGerror = false;
+    bool questionHerror = false;
+    var surveyref = Url.ActionContext.RouteData.Values["id"];
+
+    if (hasErrors)
+    {
+        if (ViewData.ModelState["QuestionAResponse"].Errors.Any())
+        {
+            questionAerror = true;
+        }
+        if (ViewData.ModelState["QuestionBResponse"].Errors.Any())
+        {
+            questionBerror = true;
+        }
+        if (ViewData.ModelState["QuestionCResponse"].Errors.Any())
+        {
+            questionCerror = true;
+        }
+        if (ViewData.ModelState["QuestionDResponse"].Errors.Any())
+        {
+            questionDerror = true;
+        }
+        if (ViewData.ModelState["QuestionEResponse"].Errors.Any())
+        {
+            questionEerror = true;
+        }
+        if (ViewData.ModelState["QuestionFResponse"].Errors.Any())
+        {
+            questionFerror = true;
+        }
+        if (ViewData.ModelState["QuestionGResponse"].Errors.Any())
+        {
+            questionGerror = true;
+        }
+        if (ViewData.ModelState["QuestionHResponse"].Errors.Any())
+        {
+            questionHerror = true;
+        }
+
+    }
+}
+
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+        <div class="nhsuk-back-link">
+            <a class="nhsuk-back-link__link" href="/csrl1/@surveyref/Q1">
+                <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+                </svg>
+                Go back
+            </a>
+        </div>
+
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <h1 class="nhsuk-heading-l">Q2 We would like to understand a bit more about your experience of the programme. Please select to what extent you agree or disagree with the following statements.</h1>
+                <form asp-action="Q2">
+                    <h2 class="nhsuk-heading-m">
+                        <label class="nhsuk-label nhsuk-label--s">
+
+                        </label>
+                    </h2>
+                    <hr class="nhsuk-section-break nhsuk-section-break--m nhsuk-section-break--visible">
+
+
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", questionAerror)">
+                        <fieldset class="nhsuk-fieldset">
+                            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                <label class="nhsuk-label nhsuk-label--m nhsuk-u-margin-bottom-0">
+                                    a)	The programme I selected was easy to access on the app/website
+                                </label>
+                            </legend>
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="QuestionAresponse"></span>
+                            </span>
+
+                            <div class="nhsuk-radios nhsuk-radios">
+                                @for (int i = 0; i < Model.Responses.Count(); i++)
+                                {
+                                    var list = Model.Responses.ElementAt(i);
+                                    @if (i == Model.Responses.Count() - 1)
+                                    {
+                                    }
+                                    <div class="nhsuk-radios__item">
+                                        <input class="nhsuk-radios__input"
+                                           id="QuestionAResponse-@i"
+                                           asp-for="QuestionAresponse"
+                                           type="radio"
+                                           value=@list.Key />
+                                        <label class="nhsuk-label nhsuk-radios__label" for="QuestionAResponse-@i">
+                                            @list.Value
+                                        </label>
+                                    </div>
+                                }
+
+                            </div>
+                        </fieldset>
+                    </div>
+                    <hr class="nhsuk-section-break nhsuk-section-break--m nhsuk-section-break--visible">
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", questionBerror)">
+                        <fieldset class="nhsuk-fieldset">
+                            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                <label class="nhsuk-label nhsuk-label--m nhsuk-u-margin-bottom-0">
+                                    b)	The weight management provider app/website was easy to use
+                                </label>
+                            </legend>
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="QuestionBresponse"></span>
+                            </span>
+
+                            <div class="nhsuk-radios nhsuk-radios">
+                                @for (int i = 0; i < Model.Responses.Count(); i++)
+                                {
+                                    var list = Model.Responses.ElementAt(i);
+                                    @if (i == Model.Responses.Count() - 1)
+                                    {
+                                    }
+                                    <div class="nhsuk-radios__item">
+                                        <input class="nhsuk-radios__input"
+                                           id="QuestionBresponse-@i"
+                                           asp-for="QuestionBresponse"
+                                           type="radio"
+                                           value=@list.Key />
+                                        <label class="nhsuk-label nhsuk-radios__label" for="QuestionBresponse-@i">
+                                            @list.Value
+                                        </label>
+                                    </div>
+                                }
+
+                            </div>
+                        </fieldset>
+                    </div>
+                    <hr class="nhsuk-section-break nhsuk-section-break--m nhsuk-section-break--visible">
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", questionCerror)">
+                        <fieldset class="nhsuk-fieldset">
+                            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                <label class="nhsuk-label nhsuk-label--m nhsuk-u-margin-bottom-0">
+                                    c)	I liked how the information was presented on the weight management provider app/website
+                                </label>
+                            </legend>
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="QuestionCresponse"></span>
+                            </span>
+
+                            <div class="nhsuk-radios nhsuk-radios">
+                                @for (int i = 0; i < Model.Responses.Count(); i++)
+                                {
+                                    var list = Model.Responses.ElementAt(i);
+                                    @if (i == Model.Responses.Count() - 1)
+                                    {
+                                    }
+                                    <div class="nhsuk-radios__item">
+                                        <input class="nhsuk-radios__input"
+                                           id="QuestionCresponse-@i"
+                                           asp-for="QuestionCresponse"
+                                           type="radio"
+                                           value=@list.Key />
+                                        <label class="nhsuk-label nhsuk-radios__label" for="QuestionCresponse-@i">
+                                            @list.Value
+                                        </label>
+                                    </div>
+                                }
+
+                            </div>
+                        </fieldset>
+                    </div>
+                    <hr class="nhsuk-section-break nhsuk-section-break--m nhsuk-section-break--visible">
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", questionDerror)">
+                        <fieldset class="nhsuk-fieldset">
+                            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                <label class="nhsuk-label nhsuk-label--m nhsuk-u-margin-bottom-0">
+                                    d)	The advice I received about physical activity reflected my cultural needs and traditions
+                                </label>
+                            </legend>
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="QuestionDresponse"></span>
+                            </span>
+
+                            <div class="nhsuk-radios nhsuk-radios">
+                                @for (int i = 0; i < Model.Responses.Count(); i++)
+                                {
+                                    var list = Model.Responses.ElementAt(i);
+                                    @if (i == Model.Responses.Count() - 1)
+                                    {
+                                    }
+                                    <div class="nhsuk-radios__item">
+                                        <input class="nhsuk-radios__input"
+                                           id="QuestionDresponse-@i"
+                                           asp-for="QuestionDresponse"
+                                           type="radio"
+                                           value=@list.Key />
+                                        <label class="nhsuk-label nhsuk-radios__label" for="QuestionDresponse-@i">
+                                            @list.Value
+                                        </label>
+                                    </div>
+                                }
+
+                            </div>
+                        </fieldset>
+                    </div>
+                    <hr class="nhsuk-section-break nhsuk-section-break--m nhsuk-section-break--visible">
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", questionEerror)">
+                        <fieldset class="nhsuk-fieldset">
+                            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                <label class="nhsuk-label nhsuk-label--m nhsuk-u-margin-bottom-0">
+                                    e)	The dietary advice I received reflected my cultural needs and traditions
+                                </label>
+                            </legend>
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="QuestionEresponse"></span>
+                            </span>
+
+                            <div class="nhsuk-radios nhsuk-radios">
+                                @for (int i = 0; i < Model.Responses.Count(); i++)
+                                {
+                                    var list = Model.Responses.ElementAt(i);
+                                    @if (i == Model.Responses.Count() - 1)
+                                    {
+                                    }
+                                    <div class="nhsuk-radios__item">
+                                        <input class="nhsuk-radios__input"
+                                           id="QuestionEresponse-@i"
+                                           asp-for="QuestionEresponse"
+                                           type="radio"
+                                           value=@list.Key />
+                                        <label class="nhsuk-label nhsuk-radios__label" for="QuestionEresponse-@i">
+                                            @list.Value
+                                        </label>
+                                    </div>
+                                }
+
+                            </div>
+                        </fieldset>
+                    </div>
+                    <hr class="nhsuk-section-break nhsuk-section-break--m nhsuk-section-break--visible">
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", questionFerror)">
+                        <fieldset class="nhsuk-fieldset">
+                            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                <label class="nhsuk-label nhsuk-label--m nhsuk-u-margin-bottom-0">
+                                    f)	The programme helped me increase my physical activity
+                                </label>
+                            </legend>
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="QuestionFresponse"></span>
+                            </span>
+
+                            <div class="nhsuk-radios nhsuk-radios">
+                                @for (int i = 0; i < Model.Responses.Count(); i++)
+                                {
+                                    var list = Model.Responses.ElementAt(i);
+                                    @if (i == Model.Responses.Count() - 1)
+                                    {
+                                    }
+                                    <div class="nhsuk-radios__item">
+                                        <input class="nhsuk-radios__input"
+                                           id="QuestionFresponse-@i"
+                                           asp-for="QuestionFresponse"
+                                           type="radio"
+                                           value=@list.Key />
+                                        <label class="nhsuk-label nhsuk-radios__label" for="QuestionFresponse-@i">
+                                            @list.Value
+                                        </label>
+                                    </div>
+                                }
+
+                            </div>
+                        </fieldset>
+                    </div>
+                    <hr class="nhsuk-section-break nhsuk-section-break--m nhsuk-section-break--visible">
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", questionGerror)">
+                        <fieldset class="nhsuk-fieldset">
+                            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                <label class="nhsuk-label nhsuk-label--m nhsuk-u-margin-bottom-0">
+                                    g)	The programme helped me eat a healthier diet
+                                </label>
+                            </legend>
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="QuestionGresponse"></span>
+                            </span>
+
+                            <div class="nhsuk-radios nhsuk-radios">
+                                @for (int i = 0; i < Model.Responses.Count(); i++)
+                                {
+                                    var list = Model.Responses.ElementAt(i);
+                                    @if (i == Model.Responses.Count() - 1)
+                                    {
+                                    }
+                                    <div class="nhsuk-radios__item">
+                                        <input class="nhsuk-radios__input"
+                                           id="QuestionGresponse-@i"
+                                           asp-for="QuestionGresponse"
+                                           type="radio"
+                                           value=@list.Key />
+                                        <label class="nhsuk-label nhsuk-radios__label" for="QuestionGresponse-@i">
+                                            @list.Value
+                                        </label>
+                                    </div>
+                                }
+
+                            </div>
+                        </fieldset>
+                    </div>
+                    <hr class="nhsuk-section-break nhsuk-section-break--m nhsuk-section-break--visible">
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", questionHerror)">
+                        <fieldset class="nhsuk-fieldset">
+                            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                <label class="nhsuk-label nhsuk-label--m nhsuk-u-margin-bottom-0">
+                                    h)	I feel more positive in myself as a result of taking part in the programme
+                                </label>
+                            </legend>
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="QuestionHresponse"></span>
+                            </span>
+
+                            <div class="nhsuk-radios nhsuk-radios">
+                                @for (int i = 0; i < Model.Responses.Count(); i++)
+                                {
+                                    var list = Model.Responses.ElementAt(i);
+                                    @if (i == Model.Responses.Count() - 1)
+                                    {
+                                    }
+                                    <div class="nhsuk-radios__item">
+                                        <input class="nhsuk-radios__input"
+                                           id="QuestionHresponse-@i"
+                                           asp-for="QuestionHresponse"
+                                           type="radio"
+                                           value=@list.Key />
+                                        <label class="nhsuk-label nhsuk-radios__label" for="QuestionHresponse-@i">
+                                            @list.Value
+                                        </label>
+                                    </div>
+                                }
+
+                            </div>
+                        </fieldset>
+                    </div>
+                    <input type="submit" value="Continue" class="nhsuk-button nhsuk-u-margin-top-3" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,15 @@
+﻿/// <reference path="../../node_modules/nhsuk-frontend/packages/core/settings/all.scss" />
+/// <reference path="../../node_modules/nhsuk-frontend/packages/core/tools/all.scss" />
+/* ==========================================================================
+   Pages/ b2c
+   ========================================================================== */
+/**
+ * This page contains all the additional styling used for the
+  B2C override pages (login/forgotten password)
+ */
+
+#attributeList {
+  ul ul {
+    @include nhsuk-responsive-margin(4, "bottom");
+  }
+}

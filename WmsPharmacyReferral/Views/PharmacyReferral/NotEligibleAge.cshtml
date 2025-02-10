@@ -1,0 +1,15 @@
+﻿@{ 
+   ViewData["Title"] = "Criteria not met";
+   Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <p>Sorry, the patient is not eligible for the NHS Digital Weight Management Programme.</p>
+                <p><a class="nhsuk-button nhsuk-button--secondary pr3" asp-action="date-of-birth" asp-controller="PharmacyReferral">Amend Date of Birth</a>
+                <a class="nhsuk-button" asp-action="start-over" asp-controller="PharmacyReferral">New Referral</a>
+            </div>
+        </div>
+    </div>
+</div>

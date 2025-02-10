@@ -1,0 +1,432 @@
+﻿@model WmsStaffReferral.Models.CheckAnswersViewModel
+@using WmsReferral.Business.Helpers
+
+@{
+    ViewData["Title"] = "CheckAnswers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+}
+
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+        <div class="nhsuk-back-link">
+            <a class="nhsuk-back-link__link" asp-action="diabetes-type-two">
+                <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+                </svg>
+                Go back
+            </a>
+        </div>
+
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+
+                <form id="formCheck" method="post" asp-action="Check-Answers">
+
+                    <h1 class="nhsuk-heading-l">Check your answers before sending your application</h1>
+
+                    <h2 class="nhsuk-heading-m">Section 1: Checking your eligibility</h2>
+
+
+                    <dl class="nhsuk-summary-list">
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.Email)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Html.DisplayFor(model => model.Referral.Email)
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Email-Address" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.Email)</span>
+                                </a>
+                            </dd>
+                        </div>
+
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.HeightCm)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @if (Model.Referral.HeightCm.HasValue)
+                                {
+                                    @Model.Referral.HeightCm.Value.ToString("0.0");
+                                }
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Height" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> Height, in centimetres</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                Height (ft in)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Html.DisplayFor(model => model.KeyAnswer.HeightImperial.HeightFt)ft
+                                @if (Model.KeyAnswer.HeightImperial.HeightIn.HasValue)
+                                {
+                                    @Model.KeyAnswer.HeightImperial.HeightIn.Value.ToString("0.0in");
+                                }
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Height-imperial" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> Height, in feet/inches</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.WeightKg)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @if (Model.Referral.WeightKg.HasValue)
+                                {
+                                    @Model.Referral.WeightKg.Value.ToString("0.0");
+                                }
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Weight" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> Weight, in kilograms</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                Weight (st lb)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Html.DisplayFor(model => model.KeyAnswer.WeightImperial.WeightSt)st
+                                @if (Model.KeyAnswer.WeightImperial.WeightLb.HasValue)
+                                {
+                                    @Model.KeyAnswer.WeightImperial.WeightLb.Value.ToString("0.0lb");
+                                }
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Weight-imperial" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> Weight, in stones/pounds</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.DateOfBmiAtRegistration)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Model.Referral.DateOfBmiAtRegistration.Value.Date.ToLongDateString()
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Weight" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.DateOfBmiAtRegistration)</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.Ethnicity)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Html.DisplayFor(model => model.Referral.Ethnicity)
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Select-Ethnicity-Group" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.Ethnicity)</span>
+                                </a>
+                            </dd>
+                        </div>
+                    </dl>
+
+                    <h2 class="nhsuk-heading-m">Section 2: Your details</h2>
+
+                    <dl class="nhsuk-summary-list">
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.FamilyName)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Html.DisplayFor(model => model.Referral.FamilyName)
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Family-Name" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.FamilyName)</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.GivenName)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Html.DisplayFor(model => model.Referral.GivenName)
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Given-Name" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.GivenName)</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.Address1)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Html.DisplayFor(model => model.Referral.Address1)
+                                @Html.DisplayFor(model => model.Referral.Address2)
+                                @Html.DisplayFor(model => model.Referral.Address3)<br />
+                                @Html.DisplayFor(model => model.Referral.Postcode)
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Address" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.Address1)</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.Telephone)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Html.DisplayFor(model => model.Referral.Telephone)
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Telephone" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.Telephone)</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.Mobile)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Html.DisplayFor(model => model.Referral.Mobile)
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Mobile" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.Mobile)</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.DateOfBirth)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Model.Referral.DateOfBirth.Value.Date.ToLongDateString()
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Date-of-Birth" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.DateOfBirth)</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.Sex)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Html.DisplayFor(model => model.Referral.Sex)
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Sex" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.Sex)</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.StaffRole)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Html.DisplayFor(model => model.Referral.StaffRole)
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="StaffRole" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.StaffRole)</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.ConsentForFutureContactForEvaluation)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @if (Model.Referral.ConsentForFutureContactForEvaluation == null)
+                                {
+                                    <span>Don't know / Prefer not to say</span>
+                                }
+                                else if (Model.Referral.ConsentForFutureContactForEvaluation == true)
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="consent-for-future-contact" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.ConsentForFutureContactForEvaluation)</span>
+                                </a>
+                            </dd>
+                        </div>
+                    </dl>
+
+                    <h2 class="nhsuk-heading-m">Section 3: Your medical information</h2>
+
+                    <dl class="nhsuk-summary-list">
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.HasAPhysicalDisability)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @if (Model.Referral.HasAPhysicalDisability == null)
+                                {
+                                    <span>Don't know / Prefer not to say</span>
+                                }
+                                else if (Model.Referral.HasAPhysicalDisability == true)
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Physical-Disability" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.HasAPhysicalDisability)</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.HasALearningDisability)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @if (Model.Referral.HasALearningDisability == null)
+                                {
+                                    <span>Don't know / Prefer not to say</span>
+                                }
+                                else if (Model.Referral.HasALearningDisability == true)
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Learning-Disability" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.HasALearningDisability)</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.HasHypertension)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @if (Model.Referral.HasHypertension == null)
+                                {
+                                    <span>Don't know / Prefer not to say</span>
+                                }
+                                else if (Model.Referral.HasHypertension == true)
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="Hypertension" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.HasHypertension)</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.HasDiabetesType1)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @if (Model.Referral.HasDiabetesType1 == null)
+                                {
+                                    <span>Don't know / Prefer not to say</span>
+                                }
+                                else if (Model.Referral.HasDiabetesType1 == true)
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="diabetes-type-one" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.HasDiabetesType1)</span>
+                                </a>
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                @Html.DisplayNameFor(model => model.Referral.HasDiabetesType2)
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @if (Model.Referral.HasDiabetesType2 == null)
+                                {
+                                    <span>Don't know / Prefer not to say</span>
+                                }
+                                else if (Model.Referral.HasDiabetesType2 == true)
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </dd>
+                            <dd class="nhsuk-summary-list__actions">
+                                <a class="nhsuk-link" asp-action="diabetes-type-two" asp-controller="StaffReferral">
+                                    Change<span class="nhsuk-u-visually-hidden"> @Html.DisplayNameFor(model => model.Referral.HasDiabetesType2)</span>
+                                </a>
+                            </dd>
+                        </div>
+                    </dl>
+
+                    <h2 class="nhsuk-heading-m">Exclusion Criteria</h2>
+                    <p class="nhsuk-body">By submitting this registration form, you confirm the following:</p>
+                    <ul class="nhsuk-list nhsuk-list--bullet">
+                        <li>You are not pregnant</li>
+                        <li>You do not have an active eating disorder</li>
+                        <li>You have not had bariatric surgery within the last 2 years</li>
+
+                    </ul>
+                    <h2 class="nhsuk-heading-m">Service Monitoring</h2>
+                    <p class="nhsuk-body">
+                        By submitting, you agree to the NHS Digital Weight Management Programme identifying your
+                        NHS number and GP practice. This is for service monitoring and evaluation
+                        purposes only and we will not access your medical record or share any
+                        details with your employer or any other third party.
+                    </p>
+
+
+
+                    <input id="btnSubmit" type="submit"
+                           value="Accept and submit application"
+                           class="nhsuk-button" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/js/Views/checkAnswers.js"></script>
+}

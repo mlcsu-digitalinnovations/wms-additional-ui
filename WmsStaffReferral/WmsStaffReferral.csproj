@@ -1,0 +1,111 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <UserSecretsId>0ac3e439-291e-4f1d-a252-d28cd67e6f5e</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/f19f2c2a-9c2b-48d7-9e49-6890fb90f79f/resourceGroups/rg-app-nhseiwmsstaffreferral-uks-pre-1/providers/microsoft.insights/components/app-nhseiwmsstaffreferral-uks-pre-1</ApplicationInsightsResourceId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Business\**" />
+    <Compile Remove="Services\**" />
+    <Compile Remove="wwwroot\lib\nhsuk-frontend\**" />
+    <Content Remove="Business\**" />
+    <Content Remove="Services\**" />
+    <Content Remove="wwwroot\lib\nhsuk-frontend\**" />
+    <EmbeddedResource Remove="Business\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <EmbeddedResource Remove="wwwroot\lib\nhsuk-frontend\**" />
+    <None Remove="Business\**" />
+    <None Remove="Services\**" />
+    <None Remove="wwwroot\lib\nhsuk-frontend\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+    <Content Remove="wwwroot\lib\timeout\referralTimeout.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="robots.production.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="robots.production.txt" />
+    <Content Include="Scss\components\_all.scss" />
+    <Content Include="Scss\components\_cookie-banner.scss" />
+    <Content Include="Scss\components\_validation.scss" />
+    <Content Include="Scss\layout\_all.scss" />
+    <Content Include="Scss\layout\_templates.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
+    <None Include="wwwroot\assets\logos\logo-nhs.svg" />
+    <None Include="wwwroot\lib\timeout\referralTimeout.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.12.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="8.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="8.0.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Formats.Asn1" Version="8.0.1" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Scss\layout\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WmsReferral.Business\WmsReferral.Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Shared\Error.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\StaffReferral\NotEligibleBMI.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\StaffReferral\Weight.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\StaffReferral\WeightImperial.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-ui\jquery-ui.theme.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\jquery-ui\jquery-ui.theme.min.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+	<!-- Build and minify SASS into CSS -->
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="npm install" />
+		<Exec Command="xcopy /Y /E /R /F &quot;$(ProjectDir)node_modules\nhsuk-frontend\packages\assets&quot; &quot;$(ProjectDir)wwwroot\lib\nhsuk-frontend\assets\&quot;" />
+		<Exec Command="xcopy /Y /E /R /F &quot;$(ProjectDir)node_modules\nhsuk-frontend\dist\nhsuk.min.js&quot; &quot;$(ProjectDir)wwwroot\lib\nhsuk-frontend\dist\&quot;" />
+		<Exec Command="npm run build-css" />
+		<Exec Command="npm run build-minified-css" />
+	</Target>
+
+</Project>

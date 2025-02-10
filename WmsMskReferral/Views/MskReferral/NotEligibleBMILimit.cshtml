@@ -1,0 +1,18 @@
+﻿@{ 
+   ViewData["Title"] = "Not eligible for this programme";
+   Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <h1 class="nhsuk-card__heading nhsuk-label--l">The patient's BMI is not within the eligibility range</h1>
+                <p>
+                    Unfortunately the patient's BMI is not within the range for the NHS Digital Weight Management Programme.
+                    This means that the patient is not eligible for our programme at this time.
+                </p>
+                <p><a class="nhsuk-button" asp-action="index" asp-controller="MskReferral">Continue</a></p>
+            </div>
+        </div>
+    </div>
+</div>

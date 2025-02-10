@@ -1,0 +1,77 @@
+﻿@model WmsMskReferral.Models.MskHubViewModel
+@using WmsReferral.Business.Helpers
+@{
+    ViewData["Title"] = "MSK Hub";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+    bool mskError = false;
+
+    if (hasErrors)
+    {
+        if (ViewData.ModelState["EmailAddress"].Errors.Any())
+        {
+            mskError = true;
+        }
+    }
+}
+
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+
+
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+
+                <form method="post"
+                      asp-controller="MskHub"
+                      asp-action="select-msk-hub">
+                    <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6">
+                        <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+                            <h1 class="nhsuk-fieldset__heading">
+                                Please select your MSK site
+                            </h1>
+                        </legend>
+                        <div class="nhsuk-form-group">
+                            <details class="nhsuk-details">
+                                <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text0" tabindex="0" aria-expanded="false">
+                                    <span class="nhsuk-details__summary-text">
+                                        Why are we asking?
+                                    </span>
+                                </summary>
+                                <div class="nhsuk-details__text" id="nhsuk-details__text0" aria-hidden="true">
+                                    This is a pilot and is only available to the below sites to make referrals. If your site is not on this list, please contact the Obesity Programme Team at <a href=mailto:england.wmp-prevention@nhs.net>england.wmp-prevention@nhs.net</a>
+                                </div>
+                            </details>
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="SelectedMskHub"></span>
+                            </span>
+                            <div class="nhsuk-radios">
+                                @if (Model.MskHubList != null)
+                                    for (int i = 0; i < Model.MskHubList.Count(); i++)
+                                    {
+                                        var groupItem = Model.MskHubList.ElementAt(i);
+
+                                        <div class="nhsuk-radios__item">
+                                            <input class="nhsuk-radios__input"
+                                                   id="group-option-@i"
+                                                   asp-for="SelectedMskHub"
+                                                   type="radio"
+                                                   value=@groupItem.OdsCode />
+                                            <label class="nhsuk-label nhsuk-radios__label" for="group-option-@i">
+                                                @groupItem.Name
+                                            </label>
+                                        </div>
+                                    }
+
+                            </div>
+                        </div>
+                    </fieldset>
+                    <input type="submit" value="Continue" class="nhsuk-button" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

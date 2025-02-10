@@ -1,0 +1,133 @@
+﻿@model WmsReferral.Business.Models.QuestionsViewModel
+@using WmsReferral.Business.Helpers
+@{
+    ViewData["Title"] = "Q7";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+    bool questionAerror = false;
+    var surveyref = Url.ActionContext.RouteData.Values["id"];
+    if (hasErrors)
+    {
+        if (ViewData.ModelState["QuestionAResponse"].Errors.Any())
+        {
+            questionAerror = true;
+        }
+
+
+
+    }
+}
+
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+        <div class="nhsuk-back-link">
+            <a class="nhsuk-back-link__link" href="/csrl23/@surveyref/Q6">
+                <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+                </svg>
+                Go back
+            </a>
+        </div>
+
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+
+                <form asp-action="Q7">
+
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", questionAerror)">
+                        <fieldset class="nhsuk-fieldset">
+                            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                <h1 class="nhsuk-label-wrapper">
+                                    <span class="nhsuk-label nhsuk-label--l">
+                                        Q7 Researchers at the University of Oxford, who are evaluating this programme, would like to speak to people who’ve used the programme about their experiences. If you would be happy to be contacted directly to participate in an interview please tick the box below.
+                                    </span>
+                                </h1>
+                            </legend>
+                            <label class="nhsuk-label nhsuk-label--m">
+                                By ticking this box you consent to NHS England passing on your first name, last name, email address and phone number to colleagues at Oxford University who may contact you at a later date to invite you to an interview.
+                            </label>
+                            <label class="nhsuk-label nhsuk-label--m">
+                                These contact details will be used for this specific purpose only and will be stored until interviews have taken place at which point they will be deleted.
+                            </label>
+                            <p>The Researchers at the University of Oxford are committed to ensuring the security and protection of the personal information that they process, and to provide a compliant and consistent approach to data protection. They have an effective data protection programme in place which complies with the existing data protection principles of GDPR and the UK’s Data Protection Bill. </p>
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="QuestionAresponse"></span>
+                            </span>
+                            <div class="nhsuk-radios nhsuk-radios--conditional nhsuk-u-padding-bottom-4">
+                                @for (int i = 0; i < Model.Responses.Count(); i++)
+                                {
+                                    var list = Model.Responses.ElementAt(i);
+                                    @if (i == Model.Responses.Count() - 1)
+                                    {
+                                    }
+                                    <div class="nhsuk-radios__item">
+                                        <input class="nhsuk-radios__input"
+                                           id="QuestionAResponse-@i"
+                                           asp-for="QuestionAresponse"
+                                           type="radio"
+                                           value=@list.Key
+                                           aria-controls="conditional-QuestionAResponse-@i"
+                                           aria-expanded="false" />
+                                        <label class="nhsuk-label nhsuk-radios__label" for="QuestionAResponse-@i">
+                                            @list.Value
+                                        </label>
+                                    </div>
+                                    @if (list.Value == "Yes")
+                                    {
+                                        <div class="nhsuk-radios__conditional @(Model.QuestionAresponse != "true" ? "nhsuk-radios__conditional--hidden" : "")" id="conditional-QuestionAResponse-@i">
+                                            <div class="nhsuk-form-group">
+                                                <label class="nhsuk-label" for="QuestionBresponse">
+                                                    Email address
+                                                </label>
+                                                <span class="nhsuk-error-message">
+                                                    <span asp-validation-for="QuestionBresponse"></span>
+                                                </span>
+                                                <input asp-for="QuestionBresponse" class="nhsuk-input nhsuk-u-width-two-thirds" spellcheck="false" autocomplete="email" type="email">
+                                            </div>
+                                            <div class="nhsuk-form-group">
+                                                <label class="nhsuk-label" for="QuestionCresponse">
+                                                    Mobile number
+                                                </label>
+                                                <span class="nhsuk-error-message">
+                                                    <span asp-validation-for="QuestionCresponse"></span>
+                                                </span>
+                                                <input asp-for="QuestionCresponse" class="nhsuk-input nhsuk-u-width-two-thirds" autocomplete="tel" type="tel">
+                                            </div>
+                                            <div class="nhsuk-form-group">
+                                                <label class="nhsuk-label" for="QuestionDresponse">
+                                                    First name (your given name)
+                                                </label>
+                                                <span class="nhsuk-error-message">
+                                                    <span asp-validation-for="QuestionDresponse"></span>
+                                                </span>
+                                                <input type="text" asp-for="QuestionDresponse" class="nhsuk-input nhsuk-u-width-two-thirds" autocomplete="given-name" spellcheck="false">
+                                            </div>
+                                            <div class="nhsuk-form-group">
+                                                <label class="nhsuk-label" for="QuestionEresponse">
+                                                    Last name (your family name)
+                                                </label>
+                                                <span class="nhsuk-error-message">
+                                                    <span asp-validation-for="QuestionEresponse"></span>
+                                                </span>
+                                                <input type="text" asp-for="QuestionEresponse" class="nhsuk-input nhsuk-u-width-two-thirds" autocomplete="family-name" spellcheck="false">
+                                            </div>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <input type="submit" value="Continue" class="nhsuk-button nhsuk-u-margin-top-3" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

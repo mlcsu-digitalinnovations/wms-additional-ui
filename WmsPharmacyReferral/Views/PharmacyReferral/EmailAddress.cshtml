@@ -1,0 +1,65 @@
+﻿@model WmsReferral.Business.Models.EmailAddressViewModel
+@using WmsReferral.Business.Helpers
+@{
+    ViewData["Title"] = "Email Address";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+    bool emailError = false;
+
+    if (hasErrors)
+    {
+        if (ViewData.ModelState["Email"].Errors.Any())
+        {
+            emailError = true;
+        }
+    }
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-back-link">
+            <a class="nhsuk-back-link__link" asp-action="mobile">
+                <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+                </svg>
+                Go back
+            </a>
+        </div>
+        <div class="nhsuk-card wms-card">
+
+            <div class="nhsuk-card__content">
+
+                <form id="formEmail" asp-action="EmailAddress">
+                    <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6"
+                              aria-describedby="Email-hint">
+                        <h1 class="nhsuk-label-wrapper">
+                            <label class="nhsuk-label nhsuk-label--l" asp-for="Email">
+                                What is the patient's email address?
+                            </label>
+                        </h1>
+
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", emailError)">
+                            <div class="nhsuk-hint" id="Email-hint">
+                                Please enter a valid email address.
+                            </div>
+                            <span class="nhsuk-error-message" id="input-with-error-message-error">
+                                <span asp-validation-for="Email">Email address not valid </span>
+                            </span>
+
+                            <input asp-for="Email" class="@NhsFormHelper.GetFormElementClasses("text", emailError)" type="text" autocomplete="email" spellcheck="false" />
+
+
+                        </div>
+                    </fieldset>
+                    <input type="submit" id="btnSubmit" value="Continue" class="nhsuk-button" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

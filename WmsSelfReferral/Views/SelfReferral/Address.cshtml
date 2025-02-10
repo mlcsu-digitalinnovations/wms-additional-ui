@@ -1,0 +1,118 @@
+﻿@model WmsReferral.Business.Models.AddressViewModelV1
+@using WmsReferral.Business.Helpers
+
+@{
+    ViewData["Title"] = "Your address";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+    bool add1Error = false;
+    bool add2Error = false;
+    bool add3Error = false;
+    bool postcodeError = false;
+    var controller = Context.Request.RouteValues.GetValueOrDefault("controller");
+    var action = Context.Request.RouteValues.GetValueOrDefault("action");
+    string htitle = action != null ? (string)action == "FindAddressConfirm" ? "Confirm your home address" : "What is your home address?" : "What is your home address?";
+    if (hasErrors)
+    {
+        if (ViewData.ModelState["Address1"].Errors.Any())
+        {
+            add1Error = true;
+        }
+        if (ViewData.ModelState["Address2"].Errors.Any())
+        {
+            add2Error = true;
+        }
+        if (ViewData.ModelState["Address3"].Errors.Any())
+        {
+            add3Error = true;
+        }
+        if (ViewData.ModelState["Postcode"].Errors.Any())
+        {
+            postcodeError = true;
+        }
+
+    }
+
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+        <div class="nhsuk-back-link">
+            <a class="nhsuk-back-link__link" asp-action="find-address">
+                <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+                </svg>
+                Go back
+            </a>
+        </div>
+
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <form asp-action="Address">
+                    <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6">
+                        <h1 class="nhsuk-label-wrapper">
+                            <span class="nhsuk-label nhsuk-label--l">
+                                @htitle
+                            </span>
+                        </h1>
+                        @if (Model.UserWarned == true)
+                        {
+                            <div class="nhsuk-warning-callout">
+                                <h3 class="nhsuk-warning-callout__label">
+                                    <span class="nhsuk-u-visually-hidden">Important:</span> Postcode not found
+                                </h3>
+                                <p>The postcode you entered was not recognised. This could be because you have typed it incorrectly or the postcode has not yet been 
+                                added to the system, for example, a new build house. <a href="#postcode" class="nhsuk-link--no-visited-state">Check you have typed your postcode correctly</a>. If your postcode is correct click 'Continue'</p>
+                            </div>
+                        }
+
+
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", add1Error)">
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="Address1"></span>
+                            </span>
+                            <label class="nhsuk-label" asp-for="Address1">
+                            </label>
+                            <input asp-for="Address1" class="@NhsFormHelper.GetFormElementClasses("text", add1Error)" type="text" autocomplete="address-line1" />
+                        </div>
+
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", add2Error)">
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="Address2"></span>
+                            </span>
+                            <label class="nhsuk-label" asp-for="Address2">
+                            </label>
+                            <input asp-for="Address2" class="@NhsFormHelper.GetFormElementClasses("text", add2Error)" type="text" autocomplete="address-line2" />
+                        </div>
+
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", add3Error)">
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="Address3"></span>
+                            </span>
+                            <label class="nhsuk-label" asp-for="Address3">
+                            </label>
+                            <input asp-for="Address3" class="@NhsFormHelper.GetFormElementClasses("text", add3Error) nhsuk-u-width-two-thirds" type="text" autocomplete="address-line3" />
+                        </div>
+
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", postcodeError)">
+                            <a name="postcode"></a>
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="Postcode"></span>
+                            </span>
+                            <label class="nhsuk-label" asp-for="Postcode">
+                            </label>
+                            <input asp-for="Postcode" class="@NhsFormHelper.GetFormElementClasses("text", postcodeError) nhsuk-input--width-10" type="text" autocomplete="postal-code" />
+                        </div>
+                        <input hidden asp-for="UserWarned" type="text" value="@Model.UserWarned" />
+                    </fieldset>
+                    <input type="submit" value="Continue" class="nhsuk-button" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,72 @@
+﻿@model WmsStaffReferral.Models.OTPAuthViewModel
+@using WmsReferral.Business.Helpers
+@{
+    ViewData["Title"] = "Staff Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+    bool mskError = false;
+
+    if (hasErrors)
+    {
+        if (ViewData.ModelState["EmailAddress"].Errors.Any())
+        {
+            mskError = true;
+        }
+    }
+}
+
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <h1 class="nhsuk-heading-l">Staff Referral Service</h1>
+                <form id="formEmail" asp-action="email-address">
+                    <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6"
+                              aria-describedby="Email-hint">
+                        <h2 class="nhsuk-heading-m">
+                            Please enter your nhs.uk or nhs.net work email address
+                        </h2>
+
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", mskError)">
+                            <div class="nhsuk-hint" id="Email-hint">
+                                You must use your nhs.uk or nhs.net email address, we will send you a security code that you need to enter on the next page in order to continue with the process.
+                            </div>
+                            <span class="nhsuk-error-message" id="input-with-error-message-error">
+                                <span class="nhsuk-u-visually-hidden">Error:</span> <span asp-validation-for="EmailAddress">Email address not valid </span>
+                            </span>
+
+                            <input asp-for="EmailAddress" class="@NhsFormHelper.GetFormElementClasses("text", mskError)" type="text" autocomplete="email" spellcheck="false" />
+                            
+                            
+                            
+                        </div>
+                    </fieldset>
+                    <input type="submit" id="btnSubmit" value="Continue" class="nhsuk-button" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{   
+    <partial name="_ValidationScriptsPartial" />    
+    <script>
+        $(document).ready(function () {
+
+            var dt = new Date().toString();
+            $("#UserTimeZone").val(Intl.DateTimeFormat().resolvedOptions().timeZone);
+
+            $("#formEmail").submit(function (e) {
+                if ($("#EmailAddress").valid()) {
+                    //disable the submit button
+                    $("#btnSubmit").attr("disabled", true);
+                    $("#btnSubmit").val("Checking...");
+                }
+            });
+
+        });
+    </script>
+}

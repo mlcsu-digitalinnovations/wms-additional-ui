@@ -1,0 +1,61 @@
+﻿@model WmsReferral.Business.Models.HeightViewModel
+@using WmsReferral.Business.Helpers
+
+@{
+    ViewData["Title"] = "Height";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;    
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+             
+
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <h1 class="nhsuk-heading-l">Section 1: Checking your eligibility</h1>
+                <form asp-action="Height"
+                      method="post">
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", hasErrors)">
+                        <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6"
+                                  aria-describedby="height-hint">
+                            <h2 class="nhsuk-heading-m">
+                                <label class="nhsuk-label nhsuk-label--m" asp-for="Height">
+                                    What is your height in centimeters?
+                                </label>
+                            </h2>
+                            <div class="nhsuk-hint" id="height-hint">
+                                Enter your height in centimetres (cm)
+                            </div>
+                            <details class="nhsuk-details">
+                                <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text0" tabindex="0" aria-expanded="false">
+                                    <span class="nhsuk-details__summary-text">
+                                        Why are we asking?
+                                    </span>
+                                </summary>
+                                <div class="nhsuk-details__text" id="nhsuk-details__text0" aria-hidden="true">
+                                    <p>We need your height so that we can calculate your BMI to check you are eligible for the programme.</p>
+
+                                </div>
+                            </details>
+                            <span class="nhsuk-error-message" id="input-with-error-message-error">
+                                <span asp-validation-for="Height"></span>
+                            </span>
+                            <label class="nhsuk-label nhsuk-date-input__label"
+                                   asp-for="Height">
+                            </label>
+                            <input type="text" class="@NhsFormHelper.GetFormElementClasses("text", hasErrors) nhsuk-input--width-3" asp-for="Height" />
+                        </fieldset>
+                    </div>
+                    <input type="submit" value="Continue" class="nhsuk-button nhsuk-u-margin-right-2" />
+                    <a class="nhsuk-button nhsuk-button--secondary" asp-action="height-imperial">Switch to ft, in</a>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        <h1 class="nhsuk-u-visually-hidden">NHS Weight Management Programme Staff Self Referral Site</h1>
+        <h2 class="nhsuk-heading-xl nhsblue">Welcome</h2>
+        <p class="nhsuk-body">
+            Welcome to the NHS Digital Weight Management Programme Staff Self Referral Site. Here members of NHS staff can quickly and easily self refer into the new NHS Digital Weight Management Programme.
+        </p>
+        <div class="nhsuk-inset-text">
+            <span class="nhsuk-u-visually-hidden">Information: </span>
+            <p>Find out more about the NHS Digital Weight Management Programme for NHS Staff <a href="https://www.england.nhs.uk/supporting-our-nhs-people/support-now/digital-weight-management-programme-for-nhs-staff/" title="NHS England website">here</a></p>
+        </div>
+        
+        <p>This should take about 10 minutes to complete.</p>
+                
+       
+        <div class="nhsuk-action-link">
+            <a class="nhsuk-action-link__link" asp-action="index" asp-controller="StaffReferral">
+                <svg class="nhsuk-icon nhsuk-icon__arrow-right-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M12 2a10 10 0 0 0-9.95 9h11.64L9.74 7.05a1 1 0 0 1 1.41-1.41l5.66 5.65a1 1 0 0 1 0 1.42l-5.66 5.65a1 1 0 0 1-1.41 0 1 1 0 0 1 0-1.41L13.69 13H2.05A10 10 0 1 0 12 2z"></path>
+                </svg>
+                <span class="nhsuk-action-link__text">Start self referral</span>
+            </a>
+        </div>
+
+
+
+
+
+        @*<form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label"></label>
+                <select class="form-control" asp-items="ViewBag.Ethnicities"></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label"></label>
+                <select class="form-control" asp-items="ViewBag.StaffRoles"></select>
+            </div>
+        </form>*@
+    </div>
+</div>

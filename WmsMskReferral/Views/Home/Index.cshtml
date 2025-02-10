@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        <h1 class="nhsuk-u-visually-hidden">NHS Digital Weight Management Programme</h1>
+        <h2 class="nhsuk-heading-xl nhsblue">Welcome</h2>
+
+        <p class="nhsuk-body">
+            Welcome to the NHS Digital Weight Management Programme MSK Referral Site.
+        </p>
+        <p>
+            Community physiotherapists can refer eligible patients into the NHS Digital
+            Weight Management Programme. To find out more about the programme and eligibility criteria,
+            please visit: <a href="https://www.england.nhs.uk/digital-weight-management/">https://www.england.nhs.uk/digital-weight-management/</a>
+        </p>
+        <p>This should take about 10 minutes to complete.</p>
+        
+        <div class="nhsuk-inset-text">
+            <span class="nhsuk-u-visually-hidden">Information: </span>
+            <p>This website is for MSK staff only and uses NHSMail for authentication, or alternatively if you don't have an nhs.net account, 
+                please use your nhs.uk email address and we will send you a one time access code .</p>
+        </div>
+        <p>For security purposes, the referral form will timeout after 10 minutes of inactivity. </p>
+
+
+    </div>
+</div>
+
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-one-half">
+        <h3>
+            Login using your NHSMail (@@nhs.net) account or nhs.uk email
+        </h3>
+
+        <div class="nhsuk-action-link">
+            <a class="nhsuk-action-link__link" asp-action="login" asp-controller="OTPAuth">
+                <svg class="nhsuk-icon nhsuk-icon__arrow-right-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M12 2a10 10 0 0 0-9.95 9h11.64L9.74 7.05a1 1 0 0 1 1.41-1.41l5.66 5.65a1 1 0 0 1 0 1.42l-5.66 5.65a1 1 0 0 1-1.41 0 1 1 0 0 1 0-1.41L13.69 13H2.05A10 10 0 1 0 12 2z"></path>
+                </svg>
+                <span class="nhsuk-action-link__text">Begin</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+

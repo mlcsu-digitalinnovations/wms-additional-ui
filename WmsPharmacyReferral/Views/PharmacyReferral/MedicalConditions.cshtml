@@ -1,0 +1,180 @@
+﻿@model WmsPharmacyReferral.Models.MedicalConditionsViewModel
+@using WmsReferral.Business.Helpers
+
+@{
+    ViewData["Title"] = "Medical Conditions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+    bool hasTypeOneDiabetesError = false;
+    bool hasTypeTwoDiabetesError = false;
+    bool hasHypertensionError = false;
+
+
+    if (hasErrors)
+    {
+        if (ViewData.ModelState["TypeOneDiabetes"].Errors.Any())
+        {
+            hasTypeOneDiabetesError = true;
+        }
+        if (ViewData.ModelState["TypeTwoDiabetes"].Errors.Any())
+        {
+            hasTypeTwoDiabetesError = true;
+        }
+        if (ViewData.ModelState["Hypertension"].Errors.Any())
+        {
+            hasHypertensionError = true;
+        }
+   
+
+    }
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+        <div class="nhsuk-back-link">
+            <a class="nhsuk-back-link__link" asp-action="gp-practice">
+                <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+                </svg>
+                Go back
+            </a>
+        </div>
+
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                
+                <form asp-action="medical-conditions">
+                    <h1 class="nhsuk-label-wrapper">
+                        <label class="nhsuk-label nhsuk-label--l">
+                            Does the patient have any of the below medical conditions and / or take regular medication for them?
+                        </label>
+                    </h1>
+                    <details class="nhsuk-details">
+                        <summary class="nhsuk-details__summary">
+                            <span class="nhsuk-details__summary-text">
+                                Why are we asking this?
+                            </span>
+                        </summary>
+                        <div class="nhsuk-details__text">
+                            <p>To be eligible for referral, the patient must have a diagnosis of high blood pressure or diabetes or both. </p>
+                        </div>
+                    </details>
+                    <hr class="nhsuk-section-break nhsuk-section-break--m nhsuk-section-break--visible">
+
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", hasHypertensionError)">
+                        <fieldset class="nhsuk-fieldset">
+                            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                <label class="nhsuk-label nhsuk-label--m nhsuk-u-margin-bottom-0">
+                                    @Html.DisplayNameFor(model=>model.Hypertension)
+                                </label>
+                            </legend>
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="Hypertension"></span>
+                            </span>
+
+                            <div class="nhsuk-radios nhsuk-radios--inline">
+                                @for (int i = 0; i < Model.YNList.Count(); i++)
+                                {
+                                    var ynGroup = Model.YNList.ElementAt(i);
+                                    @if (i == Model.YNList.Count() - 1)
+                                    {
+                                    }
+                                    <div class="nhsuk-radios__item">
+                                        <input class="nhsuk-radios__input"
+                                           id="Hypertension-@i"
+                                           asp-for="Hypertension"
+                                           type="radio"
+                                           value=@ynGroup.Key />
+                                        <label class="nhsuk-label nhsuk-radios__label" for="Hypertension-@i">
+                                            @ynGroup.Value
+                                        </label>
+                                    </div>
+                                }
+
+                            </div>
+                        </fieldset>
+                    </div>
+                    <hr class="nhsuk-section-break nhsuk-section-break--m nhsuk-section-break--visible">
+
+
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", hasTypeOneDiabetesError)">
+                        <fieldset class="nhsuk-fieldset">
+                            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                <label class="nhsuk-label nhsuk-label--m nhsuk-u-margin-bottom-0">
+                                    @Html.DisplayNameFor(model=>model.TypeOneDiabetes)
+                                </label>
+                            </legend>
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="TypeOneDiabetes"></span>
+                            </span>
+
+                            <div class="nhsuk-radios nhsuk-radios--inline">
+                                @for (int i = 0; i < Model.YNList.Count(); i++)
+                                {
+                                    var ynGroup = Model.YNList.ElementAt(i);
+                                    @if (i == Model.YNList.Count() - 1)
+                                    {
+                                    }
+                                    <div class="nhsuk-radios__item">
+                                        <input class="nhsuk-radios__input"                                           
+                                           id="TypeOneDiabetes-@i"
+                                           asp-for="TypeOneDiabetes"
+                                           type="radio"
+                                           value=@ynGroup.Key />
+                                        <label class="nhsuk-label nhsuk-radios__label" for="TypeOneDiabetes-@i">
+                                            @ynGroup.Value
+                                        </label>
+                                    </div>
+                                }
+
+                            </div>
+                        </fieldset>
+                    </div>
+                    <hr class="nhsuk-section-break nhsuk-section-break--m nhsuk-section-break--visible">
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", hasTypeTwoDiabetesError)">
+                        <fieldset class="nhsuk-fieldset">
+                            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                <label class="nhsuk-label nhsuk-label--m nhsuk-u-margin-bottom-0">
+                                    @Html.DisplayNameFor(model=>model.TypeTwoDiabetes)
+                                </label>
+                            </legend>
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="TypeTwoDiabetes"></span>
+                            </span>
+
+                            <div class="nhsuk-radios nhsuk-radios--inline">
+                                @for (int i = 0; i < Model.YNList.Count(); i++)
+                                {
+                                    var ynGroup = Model.YNList.ElementAt(i);
+                                    @if (i == Model.YNList.Count() - 1)
+                                    {
+                                    }
+                                    <div class="nhsuk-radios__item">
+                                        <input class="nhsuk-radios__input"                                           
+                                           id="TypeTwoDiabetes-@i"
+                                           asp-for="TypeTwoDiabetes"
+                                           type="radio"
+                                           value=@ynGroup.Key />
+                                        <label class="nhsuk-label nhsuk-radios__label" for="TypeTwoDiabetes-@i">
+                                            @ynGroup.Value
+                                        </label>
+                                    </div>
+                                }
+
+                            </div>
+                        </fieldset>
+                    </div>
+                    
+                    
+
+                    <input type="submit" value="Continue" class="nhsuk-button" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+<partial name="_ValidationScriptsPartial" />
+}

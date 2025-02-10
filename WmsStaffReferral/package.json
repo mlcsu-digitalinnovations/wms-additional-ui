@@ -1,0 +1,22 @@
+{
+  "name": "nhsei-wmsselfreferral",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build-css": "sass scss/main.scss wwwroot/css/main.css",
+    "build-minified-css": "sass scss/main.scss wwwroot/css/main.min.css --style=compressed",
+    "update-and-build": "npm run build-css && npm run build-minified-css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://appsdev-mlcsu.visualstudio.com/NHSEI-WmsSelfReferral/_git/NHSEI-WmsSelfReferral"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nhsuk-frontend": "^8.3.0",
+    "sass": "^1.70.0"
+  },
+  "description": ""
+}

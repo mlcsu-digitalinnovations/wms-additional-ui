@@ -1,0 +1,23 @@
+﻿/// <reference path="../../node_modules/nhsuk-frontend/packages/core/settings/all.scss" />
+/// <reference path="../../node_modules/nhsuk-frontend/packages/core/tools/all.scss" />
+/* ==========================================================================
+   Layout/ templates
+   ========================================================================== */
+/**
+ * This page contains all the additional styling used for the tempalte page
+ */
+.nhsuk-card.wms-card {
+    box-shadow: 0px 30px 30px #DDD;
+
+    h1 {
+        color: $color_nhsuk-purple;
+    }
+}
+
+.cookie-display-none {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}

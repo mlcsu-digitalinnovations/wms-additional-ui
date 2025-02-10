@@ -1,0 +1,17 @@
+﻿/// <reference path="../../node_modules/nhsuk-frontend/packages/core/settings/all.scss" />
+/// <reference path="../../node_modules/nhsuk-frontend/packages/core/tools/all.scss" />
+/* ==========================================================================
+   Components/ ui-dialog
+   ========================================================================== */
+/**
+ * This page contains all the additional styling used for the ui dialog
+ */
+
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+
+.ui-dialog-icon {
+  float: left;
+  margin-right: 5px;
+}

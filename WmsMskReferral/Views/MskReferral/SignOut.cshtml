@@ -1,0 +1,15 @@
+﻿@{ 
+   ViewData["Title"] = "Signed Out";
+   Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-twothirds">
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <p>You have signed out.</p>
+                
+                <a class="nhsuk-button" asp-action="email-address" asp-controller="OTPAuth">Sign in</a>
+            </div>
+        </div>
+    </div>
+</div>

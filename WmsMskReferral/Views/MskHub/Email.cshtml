@@ -1,0 +1,57 @@
+﻿@model WmsMskReferral.Models.MskHubViewModel
+@using WmsReferral.Business.Helpers
+@{
+    ViewData["Title"] = "MSK Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+    bool mskError = false;
+
+    if (hasErrors)
+    {
+        if (ViewData.ModelState["EmailAddress"].Errors.Any())
+        {
+            mskError = true;
+        }
+    }
+}
+
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <h1 class="nhsuk-heading-l">MSK Referral Service</h1>
+                <form id="formEmail" asp-action="email-address">
+                    <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6"
+                              aria-describedby="Email-hint">
+                        <h2 class="nhsuk-heading-m">
+                            Please enter your nhs.net email address
+                        </h2>
+
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", mskError)">
+                            <div class="nhsuk-hint" id="Email-hint">
+                                Enter an nhs.net email address to authenticate the referral. We will also use this email to contact you if there is a problem processing the referral.
+                            </div>
+                            <span class="nhsuk-error-message" id="input-with-error-message-error">
+                                <span class="nhsuk-u-visually-hidden">Error:</span> <span asp-validation-for="EmailAddress">Email address not valid </span>
+                            </span>
+
+                            <input asp-for="EmailAddress" class="@NhsFormHelper.GetFormElementClasses("text", mskError)" type="text" autocomplete="email" spellcheck="false" />
+                            
+                            <input asp-for="ODSCode" hidden />
+                            
+                        </div>
+                    </fieldset>
+                    <input type="submit" id="btnSubmit" value="Continue" class="nhsuk-button" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{   
+    <partial name="_ValidationScriptsPartial" />    
+    <script src="~/js/Views/validateEmail.js"></script>
+}

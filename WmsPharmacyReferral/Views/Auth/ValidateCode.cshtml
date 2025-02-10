@@ -1,0 +1,98 @@
+﻿@model WmsPharmacyReferral.Models.AuthViewModel
+@using WmsReferral.Business.Helpers
+@{
+    ViewData["Title"] = "Email Address";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+    bool tokenError = false;
+    string rerequesttoken = "display:none;";
+    if (hasErrors)
+    {
+        if (ViewData.ModelState["Token"].Errors.Any())
+        {
+            tokenError = true;
+        }
+    }
+
+    if (Model.IsTokenReRequested)
+    {
+        rerequesttoken = "";
+    }
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-back-link">
+            <a class="nhsuk-back-link__link" asp-action="begin">
+                <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+                </svg>
+                Go back
+            </a>
+        </div>
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">  
+                <div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="region" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner" style="@Html.Raw(rerequesttoken)">
+                    <div class="nhsuk-notification-banner__header">
+                        <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
+                            Success
+                        </h2>
+                    </div>
+                    <div class="nhsuk-notification-banner__content">
+                        <p class="nhsuk-notification-banner__heading">New code sent</p>
+                        <p class="nhsuk-body-s">A new code has been sent to your email address @Html.Raw(Model.EmailAddress).</p>
+                    </div>
+                </div>
+                <form id="formEmail" asp-action="validate-code">
+                    <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6"
+                              aria-describedby="Email-hint">
+                        <h1 class="nhsuk-heading-m">
+                            <label class="nhsuk-label nhsuk-label--m" asp-for="Token">
+                                Enter the code from the email you received
+                            </label>
+                        </h1>
+                        <details class="nhsuk-details">
+                            <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text0" tabindex="0" aria-expanded="false">
+                                <span class="nhsuk-details__summary-text">
+                                    Email not received?
+                                </span>
+                            </summary>
+                            <div class="nhsuk-details__text" id="nhsuk-details__text0" aria-hidden="true">
+                                <p>
+                                    You should receive an email from the system promptly, if after several minutes a code has not been received you may <a asp-action="request-new-token" asp-route-emailaddress="@Model.EmailAddress">request a new one here</a>.
+                                    <br />When you request a new code it invalidates the previous code.
+                                </p>
+                                <p>You told us to send the code to: <strong>@Model.EmailAddress</strong></p>
+                                <p>If you think you entered your email address incorrectly, select "Start again".</p>
+
+                            </div>
+                        </details>
+                        
+                        @*<div class="nhsuk-hint" id="Email-hint">
+            Check your inbox for an email from WMSPharmacyUI containing your unique authentication code
+        </div>*@
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", tokenError)">
+
+                            <span class="nhsuk-error-message" id="input-with-error-message-error">
+                                <span class="nhsuk-u-visually-hidden">Error:</span> <span asp-validation-for="Token"> </span>
+                            </span>
+
+                            <input asp-for="Token" class="@NhsFormHelper.GetFormElementClasses("text", tokenError)" type="text" autocomplete="off" spellcheck="false" />
+                            <input asp-for="EmailAddress" hidden />
+                            <input asp-for="ODSCode" hidden />
+                        </div>
+                    </fieldset>
+                    <input type="submit" id="btnSubmit" value="Continue" class="nhsuk-button nhsuk-u-margin-right-2" />
+                    <a class="nhsuk-button nhsuk-button--secondary" asp-action="restart">Start again</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Views/validateToken.js"></script>
+}

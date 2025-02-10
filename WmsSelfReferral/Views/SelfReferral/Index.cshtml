@@ -1,0 +1,88 @@
+﻿@model WmsSelfReferral.Models.NhsLoginViewModel
+@using WmsReferral.Business.Helpers
+@{
+    ViewData["Title"] = "Welcome";
+}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        <div class="nhsuk-u-margin-bottom-4">
+            <h1 class="nhsuk-u-margin-bottom-0">Welcome</h1>
+            <span class="nhsuk-caption-xl">
+                @Html.DisplayFor(model => model.Given_name)
+                @Html.DisplayFor(model => model.Family_name)
+            </span>
+        </div>
+        <p class="nhsuk-u-margin-bottom-8">You are now verified and can complete your referral to the NHS Digital Weight Management Programme.</p>
+        <div class="nhsuk-u-margin-bottom-8">
+            <h2>Begin your referral</h2>
+            <p>It should take about 10 minutes to complete the referral form.</p>
+            <p>For your security, if you do not interact with this webpage for more than 10 minutes, your session will end and your answers will not be saved.</p>
+            <div class="nhsuk-action-link">
+                <a class="nhsuk-action-link__link" asp-action="height" asp-controller="selfReferral">
+                    <svg class="nhsuk-icon nhsuk-icon__arrow-right-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="36" height="36">
+                        <path d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 2a10 10 0 0 0-9.95 9h11.64L9.74 7.05a1 1 0 0 1 1.41-1.41l5.66 5.65a1 1 0 0 1 0 1.42l-5.66 5.65a1 1 0 0 1-1.41 0 1 1 0 0 1 0-1.41L13.69 13H2.05A10 10 0 1 0 12 2z"></path>
+                    </svg>
+                    <span class="nhsuk-action-link__text">Begin your referral</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    @*<div class="nhsuk-grid-column-full">
+
+
+
+                <div class="nhsuk-card wms-card">
+
+                     <div class="nhsuk-card__content">
+                         <h1 class="nhsuk-heading-l">Public Self Referral: Welcome</h1>
+
+                         <p>You are now authenticated with the NHS Digital Weight Management Programme.</p>
+
+
+
+
+                         <dl class="nhsuk-summary-list">
+                             <div class="nhsuk-summary-list__row">
+                             <dt class="nhsuk-summary-list__key">
+                                 Email
+                             </dt>
+                             <dd class="nhsuk-summary-list__value">
+                                 @Html.DisplayFor(model => model.Email)
+                             </dd>
+                             </div>
+                             <div class="nhsuk-summary-list__row" style="@if (Model.Family_name == null) { @Html.Raw("display:none;"); }  ">
+                             <dt class="nhsuk-summary-list__key">
+                                 Name
+                             </dt>
+                             <dd class="nhsuk-summary-list__value">
+                                 @Html.DisplayFor(model => model.Given_name)
+                                 @Html.DisplayFor(model => model.Family_name)
+                             </dd>
+                             </div>
+                             <div class="nhsuk-summary-list__row" style="@if (Model.Birthdate.HasValue == false) { @Html.Raw("display:none;"); }  ">
+                                 <dt class="nhsuk-summary-list__key">
+                                     Date of Birth
+                                 </dt>
+                                 <dd class="nhsuk-summary-list__value">
+                                     @if (Model.Birthdate.HasValue)
+                                         @Model.Birthdate.Value.Date.ToString("d MMMM yyyy")
+                                 </dd>
+                             </div>
+
+
+                         </dl>
+
+
+
+                         <form id="formEmail" asp-action="index">
+                             <a class="nhsuk-button" asp-action="consent-nhsnumber" asp-controller="SelfReferral">New Referral</a>
+                             <input type="submit" id="btnSubmit" value="Log Out" class="nhsuk-button nhsuk-button--secondary" />
+
+                         </form>
+
+                     </div>
+                 </div>
+        </div>*@
+</div>
+    

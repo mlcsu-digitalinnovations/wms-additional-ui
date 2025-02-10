@@ -1,0 +1,56 @@
+﻿@model WmsReferral.Business.Models.StaffEmailAddressViewModel
+@using WmsReferral.Business.Helpers
+@{
+    ViewData["Title"] = "Email Address";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+    bool emailError = false;
+
+    if (hasErrors)
+    {
+        if (ViewData.ModelState["Email"].Errors.Any())
+        {
+            emailError = true;
+        }
+    }
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <h1 class="nhsuk-heading-l">Section 1: Checking your eligibility</h1>
+                <form id="formEmail" asp-action="EmailAddress">
+                    <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6"
+                              aria-describedby="Email-hint">
+                        <h2 class="nhsuk-heading-m">
+                            <label class="nhsuk-label nhsuk-label--m">
+                                What is your NHS email address?
+                            </label>
+                        </h2>
+
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", emailError)">
+                            <div class="nhsuk-hint" id="Email-hint">
+                                Use your NHS email address to help us determine that you qualify for this service
+                            </div>
+                            <span class="nhsuk-error-message">
+                                <span asp-validation-for="Email"></span>
+                            </span>
+
+                            <input asp-for="Email" class="@NhsFormHelper.GetFormElementClasses("text", emailError)" type="text" autocomplete="email" spellcheck="false" />
+
+                        </div>
+                    </fieldset>
+                    <input type="submit" id="btnSubmit" value="Continue" class="nhsuk-button" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Views/emailAddress.js"></script>
+}

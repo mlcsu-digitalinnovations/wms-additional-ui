@@ -1,0 +1,29 @@
+﻿@model WmsReferral.Business.Models.NotEligibleViewModel
+@{
+    ViewData["Title"] = "Criteria not met";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">                
+                <form asp-action="Cancel-Electivecare">
+                    <h1 class="nhsuk-label-wrapper">
+                        <span class="nhsuk-label nhsuk-label--l">
+                            Eligibility criteria
+                        </span>
+                    </h1>
+                    <p>
+                        Sorry, you do not meet the eligibility criteria for the NHS Digital Weight Management Programme as the programme is not suitable for those who have an active eating disorder.
+                    </p>
+                    <p>If you have answered this question incorrectly please 'Go back' and amend your answer, otherwise select 'End referral'.</p>
+                    <p>
+                        <input type="submit" value="End referral" class="nhsuk-button nhsuk-u-margin-right-2" />
+                        <a class="nhsuk-button nhsuk-button--secondary" asp-action="height" asp-controller="SelfReferral">Go back</a>
+                    </p>
+                    <input asp-for="NonEligibiltyReason" hidden />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

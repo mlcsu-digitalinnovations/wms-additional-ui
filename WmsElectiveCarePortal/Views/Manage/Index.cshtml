@@ -1,0 +1,77 @@
+﻿@model IEnumerable<UserModel>
+@{
+    ViewData["Title"] = "Manage";
+}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        <div class="nhsuk-u-margin-bottom-4">
+            <h1>Admin - Elective Care Users</h1>
+        </div>
+
+        <p>Create new <a asp-action="Create">user</a><br />
+            Invite new <a asp-action="InviteUser">user</a>
+            <br /></p>
+    </div>
+
+    <div class="nhsuk-grid-column-full">
+        <table id="users" role="table" class="nhsuk-table-responsive">
+            <thead role="rowgroup" class="nhsuk-table__head">
+                <tr role="row">
+                    
+                    <th role="columnheader">
+                        @Html.DisplayNameFor(model => model.GivenName)
+                    </th>
+                    <th role="columnheader">
+                        @Html.DisplayNameFor(model => model.Surname)
+                    </th>
+                    <th role="columnheader">
+                        Username
+                    </th>
+                    <th role="columnheader">
+                        Organisation
+                    </th>
+                    <th role="columnheader">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                       
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GivenName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Surname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Identities.Where(w => w.SignInType == "emailAddress").First().IssuerAssignedId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrgName)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+@section scripts{
+
+    <script src="https://cdn.datatables.net/v/dt/dt-1.13.6/r-2.5.0/datatables.min.js" integrity="sha256-rYOaIlyjfFGwxo86gfqp5uom15NH/pBDste20WzWh+s=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/js/Manage/indexDatatable.js"></script>
+
+}
+
+
+
+

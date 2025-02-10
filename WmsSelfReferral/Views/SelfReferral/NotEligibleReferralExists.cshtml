@@ -1,0 +1,103 @@
+﻿@model WmsSelfReferral.Models.ReferralExistsViewModel
+@{
+    ViewData["Title"] = "Referral Exists";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        <div class="nhsuk-u-margin-bottom-4">
+            <h1 class="nhsuk-u-margin-bottom-0">Welcome</h1>
+            <span class="nhsuk-caption-xl">
+                @Html.DisplayFor(model => model.Name)
+            </span>
+        </div>
+        @{
+            var status = Model.ErrorDescription;
+            var messageText = "";
+            if (status == "ProviderPreviouslySelected")
+            {
+                status = "You have already submitted your application and selected a provider.";
+                messageText = "You have already submitted a referral to the NHS Digital Weight Management Programme.";
+            }
+            else if (status == "PreviousReferralCompleted")
+            {
+                status = "Referral Completed";
+                messageText = "Referral Completed";
+            }
+            else if (status == "PreviousReferralCancelled")
+            {
+                status = "Referral Cancelled";
+                messageText = "Referral Cancelled";
+            }
+            else if (status == "OtherReferralSource")
+            {
+                status = "A referral already exists.";
+                messageText = "A referral has already been made to the NHS Digital Weight Management Programme.";
+            }
+        }
+        <p class="nhsuk-u-margin-bottom-8">@Html.Raw(messageText)</p>
+        <div class="nhsuk-u-margin-bottom-8">
+            <h2>Referral exists</h2>
+
+
+            <dl class="nhsuk-summary-list">
+
+                <div class="nhsuk-summary-list__row">
+                    <dt class="nhsuk-summary-list__key">
+                        Name
+                    </dt>
+                    <dd class="nhsuk-summary-list__value">
+                        @Model.Name
+                    </dd>
+
+                </div>
+
+                @{
+                    if (!String.IsNullOrEmpty(Model.ChosenProvider))
+                    {
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                Chosen Provider
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Model.ChosenProvider
+                            </dd>
+
+                        </div>
+                    }
+                }
+
+                @{
+                    if (Model.DateOfReferral!=null)
+                    {
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                Date of referral
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Model.DateOfReferral.Value.ToLongDateString()
+                            </dd>
+
+                        </div>
+                    }
+                }
+
+                <div class="nhsuk-summary-list__row">
+                    <dt class="nhsuk-summary-list__key">
+                        Status
+                    </dt>
+                    <dd class="nhsuk-summary-list__value">
+                        <p>@Html.Raw(status)</p>
+
+                    </dd>
+
+                </div>
+
+            </dl>
+
+            <p></p>
+            <p>If you believe this is incorrect please contact us <a href="/Contact-RMC">here</a>.</p>
+        </div>
+    </div>
+
+</div>

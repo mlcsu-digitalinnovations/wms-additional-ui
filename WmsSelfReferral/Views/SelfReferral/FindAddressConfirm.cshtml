@@ -1,0 +1,79 @@
+﻿@model WmsReferral.Business.Models.FindAddressViewModel
+@using WmsReferral.Business.Helpers
+
+@{
+    ViewData["Title"] = "Select address";
+    Layout = "~/Views/Shared/_Layout.cshtml";   
+
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+        <div class="nhsuk-back-link">
+            <a class="nhsuk-back-link__link" asp-action="find-address">
+                <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+                </svg>
+                Go back
+            </a>
+        </div>
+
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <form asp-action="find-address-confirm">
+                    <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6">
+                        <h1 class="nhsuk-label-wrapper">
+                            <span class="nhsuk-label nhsuk-label--l">
+                                What is your home address?
+                            </span>
+                        </h1>
+                        
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label nhsuk-label--m" asp-for="Postcode">
+                                Postcode
+                            </label>
+
+                            <label class="nhsuk-label" asp-for="Postcode">
+                                @Html.Raw(Model.Postcode) <span><a asp-action="Find-Address">Change</a></span>
+                            </label>
+
+                            <input asp-for="Postcode" hidden />
+
+                        </div>
+
+                        <div class="nhsuk-form-group">
+                            <span class="nhsuk-error-message">                                
+                                <span asp-validation-for="Address"></span>
+                            </span>
+                            <label class="nhsuk-label nhsuk-label--m" asp-for="Address">
+                                Select an address
+                            </label>
+                            <select class="nhsuk-select" asp-for="Address">
+                                @for (int i = 0; i < Model.AddressList.Count(); i++)
+                                {
+                                    var address = Model.AddressList.ElementAt(i);
+                                    <option value="@address.Key">@address.Value</option>
+                                    
+                                }                                
+                            </select>                            
+                        </div>
+                    </fieldset>
+                    <input type="submit" value="Continue" class="nhsuk-button" />
+                </form>
+                <div class="nhsuk-action-link">
+                    <a class="nhsuk-action-link__link" asp-action="Address">
+                        <svg class="nhsuk-icon nhsuk-icon__arrow-right-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="36" height="36">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M12 2a10 10 0 0 0-9.95 9h11.64L9.74 7.05a1 1 0 0 1 1.41-1.41l5.66 5.65a1 1 0 0 1 0 1.42l-5.66 5.65a1 1 0 0 1-1.41 0 1 1 0 0 1 0-1.41L13.69 13H2.05A10 10 0 1 0 12 2z"></path>
+                        </svg>
+                        <span class="nhsuk-action-link__text nhsuk-u-font-size-16">Enter address manually</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

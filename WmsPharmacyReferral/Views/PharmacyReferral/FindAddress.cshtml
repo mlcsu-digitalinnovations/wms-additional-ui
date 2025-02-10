@@ -1,0 +1,75 @@
+﻿@model WmsReferral.Business.Models.FindAddressViewModel
+@using WmsReferral.Business.Helpers
+
+@{
+    ViewData["Title"] = "Lookup address";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+    bool postcodeError = false;
+
+    if (hasErrors)
+    {
+
+        if (ViewData.ModelState["Postcode"].Errors.Any())
+        {
+            postcodeError = true;
+        }
+
+    }
+
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+        <div class="nhsuk-back-link">
+            <a class="nhsuk-back-link__link" asp-action="given-name">
+                <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+                </svg>
+                Go back
+            </a>
+        </div>
+
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <form id="formPostCode" asp-action="find-address">
+                    <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6">
+                        <h1 class="nhsuk-label-wrapper">
+                            <span class="nhsuk-label nhsuk-label--l">
+                                What is the patient's home address?
+                            </span>
+                        </h1>
+                       
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", postcodeError)">
+                            <a name="postcode"></a>
+                            <span class="nhsuk-error-message" id="input-with-error-message-error">
+                                <span asp-validation-for="Postcode"></span>
+                            </span>
+                            <label class="nhsuk-label" asp-for="Postcode">
+                            </label>
+                            <input asp-for="Postcode" class="@NhsFormHelper.GetFormElementClasses("text", postcodeError) nhsuk-input--width-10" type="text" autocomplete="postal-code" />
+                        </div>
+
+                    </fieldset>
+                    <input id="btnSubmit" type="submit" value="Find address" class="nhsuk-button" />
+                </form>
+                <div class="nhsuk-action-link">
+                    <a class="nhsuk-action-link__link" asp-action="Address">
+                        <svg class="nhsuk-icon nhsuk-icon__arrow-right-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="36" height="36">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M12 2a10 10 0 0 0-9.95 9h11.64L9.74 7.05a1 1 0 0 1 1.41-1.41l5.66 5.65a1 1 0 0 1 0 1.42l-5.66 5.65a1 1 0 0 1-1.41 0 1 1 0 0 1 0-1.41L13.69 13H2.05A10 10 0 1 0 12 2z"></path>
+                        </svg>
+                        <span class="nhsuk-action-link__text nhsuk-u-font-size-16">Enter address manually</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{    
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Views/findAddress.js"></script>
+}

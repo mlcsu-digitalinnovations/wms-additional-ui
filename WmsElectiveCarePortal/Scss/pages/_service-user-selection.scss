@@ -1,0 +1,170 @@
+﻿/// <reference path="../../node_modules/nhsuk-frontend/packages/core/settings/all.scss" />
+/// <reference path="../../node_modules/nhsuk-frontend/packages/core/tools/all.scss" />
+/* ==========================================================================
+   Pages/ service-user-selection
+   ========================================================================== */
+/**
+ * This page contains all the additional styling used for the ServiceUser/WmsSelection page
+ */
+.serviceuser-provider-detail-box .nhsuk-details__summary {
+  background-color: $color_nhsuk-blue;
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__summary .nhsuk-details__summary-text {
+  color: $color_nhsuk-white;
+  margin-bottom: 0;
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 1.55556;
+}
+
+@media (min-width: 40.0625em) {
+  .serviceuser-provider-detail-box .nhsuk-details__summary .nhsuk-details__summary-text {
+    font-size: 22px;
+    font-size: 1.375rem;
+    line-height: 1.45455;
+  }
+}
+
+@media print {
+  .serviceuser-provider-detail-box .nhsuk-details__summary .nhsuk-details__summary-text {
+    font-size: 18pt;
+    line-height: 1.15;
+  }
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__summary:hover .nhsuk-details__summary-text {
+  color: $color_nhsuk-white;
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__summary:focus .nhsuk-details__summary-text {
+  color: $color_nhsuk-black;
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text {
+  padding-top: 24px;
+}
+
+@media (min-width: 40.0625em) {
+  .serviceuser-provider-detail-box .nhsuk-details__text {
+    padding-top: 32px;
+  }
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text[aria-hidden='true'] {
+  visibility: hidden;
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-row .serviceuser-provider-logo-wrapper {
+  margin-bottom: 16px;
+  margin-left: 16px;
+  float: right;
+  max-width: 25%;
+}
+
+@media (min-width: 40.0625em) {
+  .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-row .serviceuser-provider-logo-wrapper {
+    margin-bottom: 24px;
+  }
+}
+
+@media (min-width: 40.0625em) {
+  .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-row .serviceuser-provider-logo-wrapper {
+    margin-left: 24px;
+  }
+}
+
+@media (min-width: 40.0625em) and (orientation: landscape) {
+  .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-row .serviceuser-provider-logo-wrapper {
+    max-width: 128px;
+  }
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-row .serviceuser-provider-logo-wrapper .serviceuser-provider-logo {
+  width: 100%;
+  max-width: 128px;
+  height: auto;
+  max-height: 128px;
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-row .nhsuk-grid-column-one-half {
+  margin-bottom: 16px;
+}
+
+@media (min-width: 40.0625em) {
+  .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-row .nhsuk-grid-column-one-half {
+    margin-bottom: 24px;
+  }
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-hr {
+  margin-top: 10px;
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .nhsuk-radios {
+  margin-bottom: 8px;
+}
+
+@media (min-width: 40.0625em) {
+  .serviceuser-provider-detail-box .nhsuk-details__text .nhsuk-radios {
+    margin-bottom: 16px;
+  }
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website {
+  margin-bottom: 24px;
+}
+
+@media (min-width: 40.0625em) {
+  .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website {
+    margin-bottom: 32px;
+  }
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image {
+  vertical-align: middle;
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .a, .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .c, .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .g, .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .h, .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .i, .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .j, .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .k {
+  fill: none;
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .a, .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .b, .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .c, .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .d, .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .e {
+  stroke: #330a70;
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .a, .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .d {
+  stroke-width: 2px;
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .b, .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .d, .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .e {
+  fill: #fff;
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .b, .serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .c {
+  stroke-width: 3px;
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .f {
+  stroke: none;
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .h {
+  clip-path: url(#b);
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .i {
+  clip-path: url(#d);
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .j {
+  clip-path: url(#f);
+}
+
+.serviceuser-provider-detail-box .nhsuk-details__text .serviceuser-provider-website svg.serviceuser-provider-web-image .k {
+  clip-path: url(#h);
+}
+
+#serviceuser-provider-selected-wrapper {
+  margin-top: 0;
+}

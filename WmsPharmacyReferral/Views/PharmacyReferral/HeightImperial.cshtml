@@ -1,0 +1,132 @@
+﻿@model WmsReferral.Business.Models.HeightImperialViewModel
+@using WmsReferral.Business.Helpers
+
+@{
+    ViewData["Title"] = "Height (imperial)";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+    bool heightftError = false;
+    bool heightinError = false;
+
+    bool heightError = false;
+
+    if (hasErrors)
+    {
+        if (ViewData.ModelState["HeightFt"].Errors.Any())
+        {
+            heightftError = true;
+        }
+        if (ViewData.ModelState["HeightIn"].Errors.Any())
+        {
+            heightinError = true;
+        }
+        if (ViewData.ModelState.ContainsKey("HeightError"))
+        {
+            if (ViewData.ModelState["HeightError"].Errors.Any())
+            {
+                heightError = true;
+            }
+        }
+    }
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+        <div class="nhsuk-back-link">
+            <a class="nhsuk-back-link__link" asp-action="medical-conditions">
+                <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+                </svg>
+                Go back
+            </a>
+        </div>
+
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <form asp-action="height-imperial"
+                      method="post">
+                    <div class="@NhsFormHelper.GetFormElementClasses("form-group", hasErrors)">
+                        <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6"
+                                  aria-describedby="dob-hint"
+                                  role="group">
+                            <legend class="nhsuk-fieldset__legend nhsuk-label--l">
+                                <h1 class="nhsuk-fieldset__heading">
+                                    What is the patient's height in feet and inches?
+                                </h1>
+                            </legend>
+
+                            @if (heightError)
+                            {
+                                <div class="nhsuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1">
+                                    <h2 class="nhsuk-error-summary__title" id="error-summary-title">
+                                        There is a problem
+                                    </h2>
+                                    <div class="nhsuk-error-summary__body">
+                                        <div asp-validation-summary="ModelOnly"></div>
+                                        @foreach (var error in ViewData.ModelState["HeightError"].Errors)
+                                        {
+                                            <span class="field-validation-error">@error.ErrorMessage</span>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            <div class="nhsuk-hint" id="dob-hint">
+                                For example, 5 7
+                            </div>
+                            <details class="nhsuk-details">
+                                <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text0" tabindex="0" aria-expanded="false">
+                                    <span class="nhsuk-details__summary-text">
+                                        Why are we asking?
+                                    </span>
+                                </summary>
+                                <div class="nhsuk-details__text" id="nhsuk-details__text0" aria-hidden="true">
+                                    <p>We would like to know this to calculate the patient's BMI and assess the patient's eligibility for this programme</p>
+
+                                </div>
+                            </details>
+                            <span class="nhsuk-error-message" id="dob-errors-error">
+                                
+                                <span asp-validation-for="HeightFt"></span>
+                                <span asp-validation-for="HeightIn"></span>
+
+                            </span>
+
+                            <div class="nhsuk-date-input" id="dob">
+                                <div class="nhsuk-date-input__item">
+                                    <div class="nhsuk-form-group">
+                                        <label class="nhsuk-label nhsuk-date-input__label"
+                                               asp-for="HeightFt">
+                                        </label>
+                                        <input class="@NhsFormHelper.GetFormElementClasses("date", heightftError) nhsuk-input--width-2"
+                                               asp-for="HeightFt"
+                                               type="text"
+                                               pattern="[0-9]*"
+                                               autocomplete="off" 
+                                               inputmode="numeric">
+                                    </div>
+                                </div>
+                                <div class="nhsuk-date-input__item">
+                                    <div class="nhsuk-form-group">
+                                        <label class="nhsuk-label nhsuk-date-input__label"
+                                               asp-for="HeightIn">
+                                        </label>
+                                        <input class="@NhsFormHelper.GetFormElementClasses("date", heightinError) nhsuk-input--width-2"
+                                               asp-for="HeightIn"
+                                               type="text"                                               
+                                               autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <input type="submit" value="Continue" class="nhsuk-button nhsuk-u-margin-right-2" />
+                    <a class="nhsuk-button nhsuk-button--secondary" asp-action="height">Switch to cm</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

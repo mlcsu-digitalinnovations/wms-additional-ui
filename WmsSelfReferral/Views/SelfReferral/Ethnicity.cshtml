@@ -1,0 +1,70 @@
+﻿@model WmsReferral.Business.Models.EthnicityViewModel
+
+@{ ViewData["Title"] = "Ethnic Background";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="nhsuk-back-link">
+    <a class="nhsuk-back-link__link" asp-controller="SelfReferral" asp-action="select-ethnicity-group">
+        <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+        </svg>
+        Go back
+    </a>
+</div>
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <form method="post"
+                      asp-controller="SelfReferral"
+                      asp-action="Select-Ethnicity">
+                    <fieldset class="nhsuk-fieldset">
+                        <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+                            <h1 class="nhsuk-fieldset__heading">
+                                Which one best describes your @Model.EthnicityGroupDescription background ?
+                            </h1>
+                        </legend>
+                        <div class="nhsuk-form-group">
+                            <details class="nhsuk-details">
+                                <summary class="nhsuk-details__summary" role="button" aria-controls="nhsuk-details__text0" tabindex="0" aria-expanded="false">
+                                    <span class="nhsuk-details__summary-text">
+                                        Why are we asking?
+                                    </span>
+                                </summary>
+                                <div class="nhsuk-details__text" id="nhsuk-details__text0" aria-hidden="true">
+                                    <p>Your ethnic group can affect your risk of developing long term illnesses, for example, type 2 diabetes. Sharing this information will help us find the right level of support for you.</p>
+
+                                </div>
+                            </details>
+                            <span class="nhsuk-error-message">                                
+                                <span asp-validation-for="ReferralEthnicity"></span>
+                            </span>
+                            <div class="nhsuk-radios">
+                                @for (int i = 0; i < Model.EthnicityList.Count(); i++)
+                                {
+                                    var ethnicity = Model.EthnicityList.ElementAt(i);
+                    <div class="nhsuk-radios__item">
+                        <input class="nhsuk-radios__input"                               
+                               id="ethnicity-option-@i"
+                               asp-for="ReferralEthnicity"
+                               type="radio"
+                               value=@ethnicity.Key />
+                        <label class="nhsuk-label nhsuk-radios__label" for="ethnicity-option-@i">
+                            @ethnicity.Value
+                        </label>
+                    </div>}
+
+                            </div>
+                        </div>
+                    </fieldset>
+                    <input type="submit" value="Continue" class="nhsuk-button" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

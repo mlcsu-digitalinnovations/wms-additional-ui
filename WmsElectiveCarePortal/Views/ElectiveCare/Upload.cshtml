@@ -1,0 +1,97 @@
+﻿@model UploadModel
+@{
+    ViewData["Title"] = "Upload referrals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var showForm = Model?.Result ?? true;
+}
+
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-back-link">
+            <a class="nhsuk-back-link__link" asp-action="index">
+                <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+                </svg>
+                Go back
+            </a>
+        </div>
+
+
+        <div class="nhsuk-card wms-card">
+
+            <div class="nhsuk-card__content">
+                <h1 class="nhsuk-heading-l">Elective Care Referral: Upload</h1>
+
+                @using (Html.BeginForm("Upload", "ElectiveCare", FormMethod.Post, new { @id = "formCheck", @enctype = "multipart/form-data", @class = showForm == false ? "nhsuk-u-visually-hidden" : "" }))
+                {
+                    <div class="nhsuk-inset-text" id="insettext">
+                        <span class="nhsuk-u-visually-hidden">Information: </span>
+                        <p>
+                            You will need to upload your referrals in the correct format, acceptable file types are .csv, .xls and .xlsx.
+                            <br /><br />Example blank templates can be downloaded <a href="/UserFiles/ElectiveCareTrustDataUploadTemplate.xlsx">here (.xlsx)</a>
+                            and <a href="/UserFiles/ElectiveCareTrustDataUploadTemplate.csv">here (.csv)</a>.
+                            <br /><br />
+                            The data validation guidance is available to download <a href="/UserFiles/Data_Validation_Guidance_v2.0.xlsx">here (.xlsx)</a>
+                        </p>
+
+                    </div>
+                    <div class="nhsuk-form-group">
+                        <span class="nhsuk-error-message" id="input-with-error-message-error">
+                            <span asp-validation-for="FormFile"></span>
+                        </span>
+                        <label class="nhsuk-label" id="FormFileLabel" asp-for="FormFile">
+                            Upload your referrals spreadsheet by clicking "Choose file" and then Upload.
+                        </label>
+                        <input asp-for="FormFile" class="nhsuk-input" type="file" />
+
+                    </div>
+
+                    <input id="btnSubmit" type="submit" class="nhsuk-button" value="Upload" />
+
+                }
+
+                @if (Model?.Result != null)
+                    if (Model.Result == false)
+                    {
+                        if (Model.RowErrors != null)
+                            foreach (var rowError in Model.RowErrors)
+                            {
+                                <details class="nhsuk-details">
+                                    <summary class="nhsuk-details__summary">
+                                        <span class="nhsuk-details__summary-text">
+                                            Errors detected on line @rowError.Key of your spreadsheet
+                                        </span>
+                                    </summary>
+                                    <div class="nhsuk-details__text">
+                                        <p>The following error/s have been detected:</p>
+                                        <ul>
+                                            @foreach (var error in rowError.Value)
+                                            {
+                                                <li>@error</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </details>
+                            }
+                        <a class="nhsuk-button nhsuk-button--secondary" asp-action="Upload" asp-controller="ElectiveCare">Try again</a>
+                    }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script type="text/javascript" src="/js/Upload/uploadService.js"></script>
+    
+
+
+}

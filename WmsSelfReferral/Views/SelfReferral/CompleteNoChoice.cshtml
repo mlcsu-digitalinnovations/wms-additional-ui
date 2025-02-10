@@ -1,0 +1,23 @@
+﻿
+@{ ViewData["Title"] = "Complete";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <h1 class="nhsuk-label-wrapper">
+                    <span class="nhsuk-label nhsuk-label--l">
+                        Congratulations, you have successfully registered for the NHS Digital Weight Management Programme
+                    </span>
+                </h1>
+                <h2>What happens next?</h2>
+                <p>Now that you have registered for the programme, you need to choose a weight management plan. You can do this by logging in any time to update your application. </p>
+                <p>If you don't login and choose a plan within 2 days you will be contacted via text message as a reminder. This message, from ‘NHS Service’, will contain a link to this website from which you can access the list of available weight management plans. </p>
+
+                <p><a class="nhsuk-button" asp-action="sign-out" asp-controller="SelfReferral">Log out</a></p>
+            </div>
+        </div>
+    </div>
+</div>

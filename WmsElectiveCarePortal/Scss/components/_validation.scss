@@ -1,0 +1,38 @@
+﻿/// <reference path="../../node_modules/nhsuk-frontend/packages/core/settings/all.scss" />
+/// <reference path="../../node_modules/nhsuk-frontend/packages/core/tools/all.scss" />
+/* ==========================================================================
+   Components/ validation
+   ========================================================================== */
+/**
+ * This page contains all the additional styling used for the ui validation
+ */
+
+.nhsuk-error-summary__body {
+    div.validation-summary-errors {
+        ul {
+            @extend .nhsuk-list;
+            @extend .nhsuk-error-summary__list;
+
+            li {
+            }
+        }
+    }
+}
+
+.nhsuk-input.input-validation-error {
+    @extend .nhsuk-input--error;
+}
+
+.nhsuk-select.input-validation-error {
+    @extend .nhsuk-select--error;
+}
+
+.nhsuk-error-message {
+    .field-validation-valid {
+        display: none;
+    }
+
+    .field-validation-error {
+        display: block;
+    }
+}

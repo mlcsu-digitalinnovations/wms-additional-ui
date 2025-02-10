@@ -1,0 +1,171 @@
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Tag Manager -->
+  <script nonce='@Context.Items["csp-nonce"]' data-cookieconsent='statistics' type='text/plain'>
+    var googleAnalyticsKey = '@(Configuration["WmsReferral:GoogleAnalyticsKey"] ?? "")';
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; var n = d.querySelector('[nonce]');
+      n && j.setAttribute('nonce', n.nonce || n.getAttribute('nonce')); f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', googleAnalyticsKey);</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>@ViewData["Title"] - NHS Digital Weight Management Programme Public Self Referral Site</title>
+  <link rel="preload" as="font" href="https://assets.nhs.uk/fonts/FrutigerLTW01-55Roman.woff2" type="font/woff2" nonce='@Context.Items["csp-nonce"]' crossorigin>
+  <link rel="preload" as="font" href="https://assets.nhs.uk/fonts/FrutigerLTW01-65Bold.woff2" type="font/woff2" nonce='@Context.Items["csp-nonce"]' crossorigin>
+  <link rel="preconnect  dns-prefetch" href="https://www.nhs.uk/" nonce='@Context.Items["csp-nonce"]'>
+  <link rel="preconnect  dns-prefetch" href="https://assets.nhs.uk/" nonce='@Context.Items["csp-nonce"]' crossorigin>
+  <link rel="stylesheet" href="~/css/main.min.css" asp-append-version="true"/>
+  <link rel="stylesheet" href="~/lib/jquery-ui/jquery-ui.min.css" />
+  <link rel="stylesheet" href="~/lib/jquery-ui/jquery-ui.theme.min.css" />
+  <link rel="shortcut icon" href="/lib/nhsuk-frontend/assets/favicons/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/lib/nhsuk-frontend/assets/favicons/apple-touch-icon-180x180.png">
+  <link rel="mask-icon" href="/lib/nhsuk-frontend/assets/favicons/favicon.svg" color="#005eb8">
+  <link rel="icon" sizes="192x192" href="/lib/nhsuk-frontend/assets/favicons/favicon-192x192.png">
+  <meta name="msapplication-TileImage" content="/lib/nhsuk-frontend/assets/favicons/mediumtile-144x144.png">
+  <meta name="msapplication-TileColor" content="#005eb8">
+  <meta name="msapplication-square70x70logo" content="/lib/nhsuk-frontend/assets/favicons/smalltile-70x70.png">
+  <meta name="msapplication-square150x150logo" content="/lib/nhsuk-frontend/assets/favicons/mediumtile-150x150.png">
+  <meta name="msapplication-wide310x150logo" content="/lib/nhsuk-frontend/assets/favicons/widetile-310x150.png">
+  <meta name="msapplication-square310x310logo" content="/lib/nhsuk-frontend/assets/favicons/largetile-310x310.png">
+  <script src="/lib/nhsuk-frontend/dist/nhsuk.min.js" defer></script>
+</head>
+<body>
+  @{
+    var controller = Context.Request.RouteValues.GetValueOrDefault("controller");
+    var nhsloginurl = Configuration["WmsSelfReferral:NhsLoginSettingsUrl"];
+    var environment = Configuration["WmsReferral:environment"] ?? "";
+  }
+
+  <header class="nhsuk-header " role="banner">
+    <div class="nhsuk-header__container">
+      <div class="nhsuk-header__logo">
+        <a class="nhsuk-header__link nhsuk-header__link--service " href="/" aria-label="NHS Digital Weight Management Programme">
+          <svg class="nhsuk-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 16" height="40" width="100">
+            <path class="nhsuk-logo__background" fill="#005eb8" d="M0 0h40v16H0z"></path>
+            <path class="nhsuk-logo__text" fill="#fff" d="M3.9 1.5h4.4l2.6 9h.1l1.8-9h3.3l-2.8 13H9l-2.7-9h-.1l-1.8 9H1.1M17.3 1.5h3.6l-1 4.9h4L25 1.5h3.5l-2.7 13h-3.5l1.1-5.6h-4.1l-1.2 5.6h-3.4M37.7 4.4c-.7-.3-1.6-.6-2.9-.6-1.4 0-2.5.2-2.5 1.3 0 1.8 5.1 1.2 5.1 5.1 0 3.6-3.3 4.5-6.4 4.5-1.3 0-2.9-.3-4-.7l.8-2.7c.7.4 2.1.7 3.2.7s2.8-.2 2.8-1.5c0-2.1-5.1-1.3-5.1-5 0-3.4 2.9-4.4 5.8-4.4 1.6 0 3.1.2 4 .6"></path>
+          </svg>
+
+          <span class="nhsuk-header__service-name">
+            NHS Digital Weight Management Programme
+          </span>
+        </a>
+      </div>
+      <div class="nhsuk-header__content" id="content-header">
+      </div>
+    </div>
+
+    <div class="nhsuk-navigation-container">
+      <nav class="nhsuk-navigation" id="header-navigation" role="navigation" aria-label="Primary navigation" aria-labelledby="label-navigation">
+        <ul class="nhsuk-header__navigation-list">
+          @if (controller.ToString().ToLower() == "selfreferral")
+          {
+
+            <li class="nhsuk-header__navigation-item">
+              <a class="nhsuk-header__navigation-link" target="_blank" href="@Html.Raw(nhsloginurl)">
+                Manage NHS login
+              </a>
+            </li>
+            <li class="nhsuk-header__navigation-item">
+              <a class="nhsuk-header__navigation-link" asp-action="sign-out" asp-controller="SelfReferral">
+                Log out
+              </a>
+            </li>
+          }
+          <li class="nhsuk-header__navigation-item--home">
+            <a class="nhsuk-header__navigation-link" href="/">
+              Home
+            </a>
+          </li>
+          <li class="nhsuk-mobile-menu-container">
+            <button class="nhsuk-header__menu-toggle nhsuk-header__navigation-link" id="toggle-menu" aria-expanded="false">
+              <span class="nhsuk-u-visually-hidden">Browse</span>
+              More
+              <svg class="nhsuk-icon nhsuk-icon__chevron-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M15.5 12a1 1 0 0 1-.29.71l-5 5a1 1 0 0 1-1.42-1.42l4.3-4.29-4.3-4.29a1 1 0 0 1 1.42-1.42l5 5a1 1 0 0 1 .29.71z"></path>
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  @if (environment == "Development" || environment == "Staging")
+  {
+    <div class="nhsuk-environment-alert">
+      <div class="nhsuk-width-container">
+        <div class="nhsuk-grid-row">
+          <div class="nhsuk-grid-column-full">
+            <div class="nhsuk-environment-alert__content">
+              @environment Environment - For testing only, please DO NOT USE live data. The live site is here <a href="https://public.wmp.nhs.uk/">public.wmp.nhs.uk</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+  <partial name="_PhaseBanner" />
+  <div class="nhsuk-width-container">
+    <main class="nhsuk-main-wrapper" id="maincontent">
+      @RenderBody()
+    </main>
+  </div>
+
+  <footer role="contentinfo">
+    <div class="nhsuk-footer-container">
+      <div class="nhsuk-width-container">
+        <h2 class="nhsuk-u-visually-hidden">Support links</h2>
+        <div class="nhsuk-footer">
+        <ul class="nhsuk-footer__list">
+          <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
+            <a class="nhsuk-footer__list-item-link" asp-controller="Home" asp-action="Accessibility">Accessibility statement</a>
+          </li>
+          <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
+            <a class="nhsuk-footer__list-item-link" asp-controller="Home" asp-action="ContactUs">Contact us</a>
+          </li>
+          <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
+            <a class="nhsuk-footer__list-item-link" asp-controller="Home" asp-action="Cookies">Cookies</a>
+          </li>
+          <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
+            <a class="nhsuk-footer__list-item-link" asp-controller="Home" asp-action="Privacy">Privacy policy</a>
+          </li>
+          <li class="nhsuk-footer__list-item nhsuk-footer-default__list-item">
+            <a class="nhsuk-footer__list-item-link" asp-controller="Home" asp-action="TermsAndConditions">Terms and conditions</a>
+          </li>
+        </ul>
+
+        <div>
+          <p class="nhsuk-footer__copyright">&copy; @DateTime.Now.Year Crown copyright</p>
+        </div>
+      </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="~/lib/jquery/dist/jquery.min.js"></script>
+  <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+  <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+  <script src="~/js/site.js" asp-append-version="true"></script>
+
+  @{
+    if (controller.ToString().ToLower() == "selfreferral")
+    {
+      <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+      <script src="~/lib/timeout/referralTimeout.min.js"></script>
+      <script src="~/js/Views/referralTimeout.js"></script>
+    }
+  }
+  @await RenderSectionAsync("Scripts", required: false)
+  <script src="~/js/cookieconsent/main.js" data-policy-url="/Cookies" type="module" asp-append-version="true"></script>
+</body>
+</html>

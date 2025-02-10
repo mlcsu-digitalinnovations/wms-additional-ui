@@ -1,0 +1,88 @@
+﻿@model WmsMskReferral.Models.MskHubViewModel
+@using WmsReferral.Business.Helpers
+@{
+    ViewData["Title"] = "MSK Hub";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+            //bool mskError = false;
+
+    //if (hasErrors)
+    //{
+    //    var emailErrors = ViewData.ModelState["EmailAddress"]?.Errors.Any();
+    //    if (emailErrors != null)
+    //    {
+    //        if (emailErrors==true)
+    //            mskError = true;
+            //    }
+    //}
+}
+
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+
+
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+
+                <form method="post"
+                      asp-controller="MskHub"
+                      id="mskHub"
+                      asp-action="select-msk-hub">
+                    <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6">
+                        <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+                            <h1 class="nhsuk-fieldset__heading">
+                                What is your MSK Site?
+                            </h1>
+                        </legend>
+                        <div class="nhsuk-form-group">
+
+                            <div class="nhsuk-hint" id="search-hint">
+                                Search for your MSK site
+                            </div>
+                            <span class="nhsuk-error-message">
+                                <span id="SelectedMSKHub_Error" asp-validation-for="SelectedMskHub"></span>
+                            </span>
+                            <select class="nhsuk-select" id="SelectedMskHub" name="SelectedMskHub">
+                                <option value="">-- Select an MSK Site --</option>
+                                @if (Model.MskHubList != null)
+                                    for (int i = 0; i < Model.MskHubList.Count(); i++)
+                                    {
+                                        var groupItem = Model.MskHubList.ElementAt(i);
+                                        <option value="@groupItem.OdsCode">@groupItem.Name</option>
+                                    }
+                            </select>
+                        </div>
+
+                        <details class="nhsuk-details">
+                            <summary class="nhsuk-details__summary">
+                                <span class="nhsuk-details__summary-text">
+                                    Can't find your MSK site?
+                                </span>
+                            </summary>
+                            <div class="nhsuk-details__text">
+                                <p>
+                                    This is a pilot and is only available to certain sites to make referrals. If you can't find your site please contact the Obesity Programme Team at <a href=mailto:england.wmp-prevention@nhs.net>england.wmp-prevention@nhs.net</a>
+                                </p>
+
+
+                            </div>
+                        </details>
+
+                    </fieldset>
+                    <input type="submit" id="btnSubmit" value="Continue" class="nhsuk-button" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript" src="/js/accessible-autocomplete.min.js"></script>
+    <script type="text/javascript" src="~/js/Views/autocomplete.js"></script>
+}
+@section styles{
+    <link rel="stylesheet" href="/css/accessible-autocomplete.min.css" />
+}

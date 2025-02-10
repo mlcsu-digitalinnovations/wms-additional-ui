@@ -1,0 +1,84 @@
+﻿@model HomeIndexViewModel
+@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        <h1 class="nhsuk-u-visually-hidden">NHS Digital Weight Management Programme</h1>
+        <h2 class="nhsuk-heading-xl nhsblue">Welcome</h2>
+
+        <p>
+            Welcome to the NHS Digital Weight Management Programme. It's easy to refer yourself and
+            should take about 10 minutes to complete the online referral form, you can find <a href="https://www.england.nhs.uk/digital-weight-management/">more information about the programme here</a>.
+        </p>
+        <div class="nhsuk-inset-text">
+            <span class="nhsuk-u-visually-hidden">Information: </span>
+            <p>The NHS Digital Weight Management Programme is only available to you if you live in England.</p>
+        </div>
+
+        <p>The NHS Digital Weight Management Programme uses NHS login for referrals.</p>
+        <p>NHS login allows you to access your health and care websites and apps with one set of login details. We will check if you have an NHS login. If not, you can set one up.</p>
+               
+        @if (Model.UserLinkIdIsNullOrWhiteSpace)
+        {
+          <div class="nhsuk-inset-text">
+            <p>Please use the link in the text message you received from NHSNoReply to proceed.</p>
+          </div>
+        }
+    </div>
+</div>
+
+
+@if (!Model.UserLinkIdIsNullOrWhiteSpace)
+{
+  <div class="nhsuk-grid-row">
+   
+      <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-6">
+        <a class="nhslogin-button" asp-action="login" asp-controller="SelfReferral">Continue to NHS login</a>
+      </div>
+    
+  </div>
+}
+
+
+
+
+@*<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+    <ul class="nhsuk-grid-row nhsuk-card-group">
+    <li class="nhsuk-grid-column-one-half nhsuk-card-group__item">
+    <div class="nhsuk-card wms-card">
+    <div class="nhsuk-card__content">
+    <h3 class="nhsuk-card__heading">
+    Login
+    </h3>
+    <div class="nhsuk-u-margin-left-2 nhsuk-u-margin-right-2">
+    <a asp-action="index" asp-controller="SelfReferral">
+    <img src="/assets/logos/NHSLogin_ContinueWith_Original.svg" alt="button" title="continue with NHS Login">
+    </a>
+    </div>
+    </div>
+    </div>
+    </li>
+    <li class="nhsuk-grid-column-one-half nhsuk-card-group__item">
+    <div class="nhsuk-card wms-card">
+    <div class="nhsuk-card__content">
+    <h3 class="nhsuk-card__heading">
+    No account? Register here
+    </h3>
+    <div class="nhsuk-u-margin-left-2 nhsuk-u-margin-right-2">
+    <a asp-action="index" asp-controller="SelfReferral">
+    <img src="/assets/logos/NHSLogin_RegisterUsing_Original.svg" alt="button" title="register for NHS Login">
+    </a>
+    </div>
+    </div>
+    </div>
+    </li>
+    </ul>
+
+
+
+
+    </div>
+    </div*@

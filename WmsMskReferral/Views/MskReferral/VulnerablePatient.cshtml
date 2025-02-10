@@ -1,0 +1,90 @@
+﻿@model WmsMskReferral.Models.VulnerablePatientViewModel
+@using WmsReferral.Business.Helpers
+
+@{
+    ViewData["Title"] = "Additional Support";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+    bool vulnPatient = false;
+    
+    if (hasErrors)
+    {
+        if (ViewData.ModelState["VulnerablePatient"].Errors.Any())
+        {
+            vulnPatient = true;
+        }       
+    }
+
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+        <div class="nhsuk-back-link">
+            <a class="nhsuk-back-link__link" asp-action="learning-disability">
+                <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+                </svg>
+                Go back
+            </a>
+        </div>
+
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <form asp-action="phonecall-required">
+                    <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6">
+                        <h1 class="nhsuk-label-wrapper">
+                            <span class="nhsuk-label nhsuk-label--l">
+                                Instead of receiving an SMS text message, does this person, for any other reason, require a phone call to help them get onto the service? 
+                            </span>
+                        </h1>
+
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", vulnPatient)">
+                            <details class="nhsuk-details">
+                                <summary class="nhsuk-details__summary">
+                                    <span class="nhsuk-details__summary-text">
+                                        Why are we asking this?
+                                    </span>
+                                </summary>
+                                <div class="nhsuk-details__text">
+                                    <p>Your answer will determine whether this person requires a phone call instead of a text message to access the service.</p>
+                                </div>
+                            </details>
+                            <span class="nhsuk-error-message" id="input-with-error-message-error">
+                                <span asp-validation-for="VulnerablePatient"></span>
+                            </span>
+
+                            <div class="nhsuk-radios">
+                                @for (int i = 0; i < Model.VulnerablePatientList.Count(); i++)
+                                {
+                                    var vulnerableGroup = Model.VulnerablePatientList.ElementAt(i);                                    
+                                    <div class="nhsuk-radios__item">
+                                        <input class="nhsuk-radios__input"
+                                               role="radio"
+                                               id="vulnerable-group-option-@i"
+                                               asp-for="VulnerablePatient"
+                                               type="radio"
+                                               value=@vulnerableGroup.Key />
+                                        <label class="nhsuk-label nhsuk-radios__label" for="diabetes-group-option-@i">
+                                            @vulnerableGroup.Value
+                                        </label>
+                                    </div>}
+
+                            </div>
+                        </div>
+                       
+                    </fieldset>
+                    <input type="submit" value="Continue" class="nhsuk-button" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{   
+    <partial name="_ValidationScriptsPartial" />
+  
+}

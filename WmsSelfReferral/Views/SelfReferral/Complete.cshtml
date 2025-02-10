@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Complete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <h1 class="nhsuk-label-wrapper">
+                    <span class="nhsuk-label nhsuk-label--l">
+                        Congratulations, you have successfully registered for the NHS Digital Weight Management Programme
+                    </span>
+                </h1>
+
+                <p>There is nothing else for you to do. The service that you selected will be in contact shortly to let you know what happens next.</p>
+                <p><a class="nhsuk-button" asp-action="sign-out" asp-controller="SelfReferral">Log out</a></p>
+            </div>
+        </div>
+    </div>
+</div>

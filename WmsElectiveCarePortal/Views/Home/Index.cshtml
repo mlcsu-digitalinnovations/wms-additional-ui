@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+        <h1 class="nhsuk-u-visually-hidden">NHS Weight Management Programme Elective Care Referral Site</h1>
+        <h2 class="nhsuk-heading-xl nhsblue">Welcome</h2>
+        <p class="nhsuk-body">
+            Welcome to the NHS Digital Weight Management Programme Elective Care Referral Site. Here, staff from Acute Trusts can upload patient lists eligible for
+            the NHS Digital Weight Management Programme.
+        </p>
+        <div class="nhsuk-inset-text">
+            <span class="nhsuk-u-visually-hidden">Information: </span>
+            <p>Find out more about the NHS Digital Weight Management Programme for Elective Care <a href="https://www.england.nhs.uk/digital-weight-management/nhs-digital-weight-management-programme/" title="NHS England website">here</a></p>
+        </div>
+
+        <p>You will need a login to upload Elective Care referrals. If you don't have one, please contact your Trust lead in the first instance.</p>
+
+
+        <div class="nhsuk-action-link">
+            <a class="nhsuk-action-link__link" asp-action="index" asp-controller="ElectiveCare">
+                <svg class="nhsuk-icon nhsuk-icon__arrow-right-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M12 2a10 10 0 0 0-9.95 9h11.64L9.74 7.05a1 1 0 0 1 1.41-1.41l5.66 5.65a1 1 0 0 1 0 1.42l-5.66 5.65a1 1 0 0 1-1.41 0 1 1 0 0 1 0-1.41L13.69 13H2.05A10 10 0 1 0 12 2z"></path>
+                </svg>
+                <span class="nhsuk-action-link__text">Login</span>
+            </a>
+        </div>
+
+
+
+
+
+        @*<form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+        <label class="control-label"></label>
+        <select class="form-control" asp-items="ViewBag.Ethnicities"></select>
+        </div>
+        <div class="form-group">
+        <label class="control-label"></label>
+        <select class="form-control" asp-items="ViewBag.StaffRoles"></select>
+        </div>
+        </form>*@
+    </div>
+</div>

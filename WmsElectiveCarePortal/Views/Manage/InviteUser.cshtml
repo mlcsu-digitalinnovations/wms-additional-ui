@@ -1,0 +1,171 @@
+﻿@model UserModel
+@using WmsReferral.Business.Helpers
+@{
+    ViewData["Title"] = "Invite User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    bool hasErrors = ViewData.ModelState.ErrorCount > 0;
+    bool DisplayNameError = false;
+    bool GivenNameError = false;
+    bool SurnameError = false;
+    bool ODSCodeError = false;
+    bool MailError = false;
+
+    var formClasses = "";
+    var notificationClasses = "nhsuk-notification-banner ";
+
+    if (Model.UserUpdated == true)
+    {
+        notificationClasses += "nhsuk-notification-banner--success";
+        formClasses = "nhsuk-u-visually-hidden";
+    }
+    else if (Model.UserUpdated == false)
+    {
+        notificationClasses += "nhsuk-notification-banner--danger";
+        formClasses = "nhsuk-u-visually-hidden";
+    }
+    else
+    {
+        notificationClasses += "nhsuk-u-visually-hidden";
+        formClasses = "";
+    }
+    
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-back-link">
+            <a class="nhsuk-back-link__link" asp-action="index">
+                <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+                </svg>
+                Go back
+            </a>
+        </div>
+
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <h1 class="nhsuk-label-wrapper">
+                    <span class="nhsuk-label nhsuk-label--l">
+                        Invite User
+                    </span>
+                </h1>
+                <form id="frmCreate" asp-action="InviteUser" class="@Html.Raw(formClasses)">
+                    <fieldset class="nhsuk-fieldset nhsuk-u-padding-bottom-6">
+
+
+
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", DisplayNameError)">
+                            <span class="nhsuk-error-message" id="input-with-error-message-error">
+                                <span asp-validation-for="DisplayName">Enter the users full name</span>
+                            </span>
+                            <label class="nhsuk-label" asp-for="DisplayName">
+                                Display name (users full name)
+                            </label>
+                            <input asp-for="DisplayName" class="@NhsFormHelper.GetFormElementClasses("text", DisplayNameError) nhsuk-u-width-two-thirds" type="text" autocomplete="off" />
+                        </div>
+
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", GivenNameError)">
+                            <span class="nhsuk-error-message" id="input-with-error-message-error">
+                                <span asp-validation-for="GivenName"></span>
+                            </span>
+                            <label class="nhsuk-label" asp-for="GivenName">
+                                Given name
+                            </label>
+                            <input asp-for="GivenName" class="@NhsFormHelper.GetFormElementClasses("text", GivenNameError) nhsuk-u-width-two-thirds" type="text" autocomplete="off" />
+                        </div>
+
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", SurnameError)">
+                            <span class="nhsuk-error-message" id="input-with-error-message-error">
+                                <span asp-validation-for="Surname"></span>
+                            </span>
+                            <label class="nhsuk-label" asp-for="Surname">
+                            </label>
+                            <input asp-for="Surname" class="@NhsFormHelper.GetFormElementClasses("text", SurnameError) nhsuk-u-width-two-thirds" type="text" autocomplete="off" />
+                        </div>
+
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", MailError)">
+                            <span class="nhsuk-error-message" id="input-with-error-message-error">
+                                <span asp-validation-for="Mail"></span>
+                            </span>
+                            <label class="nhsuk-label" asp-for="Mail">
+                                Email address
+                            </label>
+                            <input asp-for="Mail" class="@NhsFormHelper.GetFormElementClasses("text", MailError) nhsuk-u-width-two-thirds" type="text" autocomplete="off" />
+                        </div>
+
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", ODSCodeError)">
+                            <span class="nhsuk-error-message" id="input-with-error-message-error">
+                                <span asp-validation-for="OdsCode"></span>
+                            </span>
+                            <label class="nhsuk-label" asp-for="OdsCode">
+                                ODS Code
+                            </label>
+                            <input asp-for="OdsCode" class="@NhsFormHelper.GetFormElementClasses("text", ODSCodeError) nhsuk-input--width-5" type="text" autocomplete="off" />
+                        </div>
+
+                        <div class="@NhsFormHelper.GetFormElementClasses("form-group", ODSCodeError)">
+                            <span class="nhsuk-error-message" id="input-with-error-message-error">
+                                <span asp-validation-for="UserInviteExpiry"></span>
+                            </span>
+                            <label class="nhsuk-label" asp-for="UserInviteExpiry">
+                                Invite expiry date
+                            </label>
+                            <input asp-for="UserInviteExpiry" class="@NhsFormHelper.GetFormElementClasses("text", ODSCodeError) nhsuk-u-width-one-third" type="text" autocomplete="off" />
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" id="btnSubmit" value="Create Invite" class="nhsuk-button" />
+                        </div>
+                    </fieldset>
+
+                </form>
+                <div id="nhsuk-notification" class="@Html.Raw(notificationClasses)" role="region" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner">
+                    <div class="nhsuk-notification-banner__header">
+                        <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
+                            <span id="MessageTitle">
+                                @{
+                                    if (Model.UserUpdated==true)
+                                    {
+                                        <text>Success</text>
+                                    } else if (Model.UserUpdated == false)
+                                    {
+                                        <text>Failure</text>
+                                    }
+
+                                }
+
+                            </span>
+                        </h2>
+                    </div>
+                    <div class="nhsuk-notification-banner__content">
+                        <div id="MessageText">@Html.Raw(Model.UserUpdatedMessage)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nhsuk-back-link">
+            <a class="nhsuk-back-link__link" asp-action="index">
+                <svg class="nhsuk-icon nhsuk-icon__chevron-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+                </svg>
+                Go back
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script type="text/javascript" src="/lib/jquery-ui/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/js/Manage/b2cService.js"></script>
+    }
+
+}
+
+
+
+

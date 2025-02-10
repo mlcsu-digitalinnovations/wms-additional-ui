@@ -1,0 +1,92 @@
+﻿@model UserModel
+@using WmsReferral.Business.Helpers
+@{
+    ViewData["Title"] = "Elective Care";
+}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+
+
+
+        <div class="nhsuk-card wms-card">
+
+            <div class="nhsuk-card__content">
+                <h1 class="nhsuk-heading-l">Elective Care Referral: Welcome</h1>
+
+                <p>You are now authenticated with the NHS Digital Weight Management Programme for Elective Care and can proceed to upload new referrals.</p>
+                <div class="nhsuk-inset-text">
+                    <span class="nhsuk-u-visually-hidden">Information: </span>
+                    <p>Please check your details below carefully, if your ODS or Organisation is incorrect please <a asp-action="Help" title="NHS England website">contact us</a> before proceeding</p>
+                </div>
+
+                <form id="formEmail" asp-action="index">
+
+                    <dl class="nhsuk-summary-list">
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                Your name
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Html.DisplayFor(model => model.DisplayName)
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                Your ODS code
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Html.DisplayFor(model => model.OdsCode)
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                Your organisation
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Html.DisplayFor(model => model.OrgName)
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                Your email
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @Html.DisplayFor(model => model.Mail)
+                            </dd>
+                        </div>
+                        <div class="nhsuk-summary-list__row">
+                            <dt class="nhsuk-summary-list__key">
+                                Referral quota
+                            </dt>
+                            <dd class="nhsuk-summary-list__value">
+                                @{
+                                    if (Model.ReferralQuotaTotal == -1)
+                                    {
+                                        <span>Unknown</span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            @Html.DisplayFor(model => model.ReferralQuotaRemaining)/@Html.DisplayFor(model => model.ReferralQuotaTotal)
+                                        </span>
+                                    }
+                                }
+
+                            </dd>
+                        </div>
+
+                    </dl>
+
+
+
+
+                    <a class="nhsuk-button" asp-action="upload" asp-controller="ElectiveCare">Upload Referrals</a>
+                    @*<input type="submit" id="btnSubmit" value="Log Out" class="nhsuk-button nhsuk-button--secondary" />*@
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

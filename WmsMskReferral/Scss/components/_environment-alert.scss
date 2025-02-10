@@ -1,0 +1,18 @@
+﻿/// <reference path="../../node_modules/nhsuk-frontend/packages/core/settings/all.scss" />
+/// <reference path="../../node_modules/nhsuk-frontend/packages/core/tools/all.scss" />
+/* ==========================================================================
+   Components/ environment-alert
+   ========================================================================== */
+/**
+ * This page contains all the additional styling used for the environment alert
+ */
+
+.nhsuk-environment-alert {
+  background-color: $color_nhsuk-yellow;
+  padding-bottom: nhsuk-spacing(4);
+  padding-top: nhsuk-spacing(4);
+
+  .nhsuk-environment-alert__content {
+    position: relative;
+  }
+}

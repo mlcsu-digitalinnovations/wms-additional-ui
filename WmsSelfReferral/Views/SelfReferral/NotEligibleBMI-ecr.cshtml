@@ -1,0 +1,29 @@
+﻿@model WmsReferral.Business.Models.NotEligibleViewModel
+@{ 
+   ViewData["Title"] = "You are not eligible for this programme";
+   Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        <div class="nhsuk-card wms-card">
+            <div class="nhsuk-card__content">
+                <form asp-action="Cancel-Electivecare">
+                    <h1 class="nhsuk-card__heading nhsuk-label--l">Your BMI is not within the eligibility range</h1>
+                    <p>
+                        We’re pleased to tell you that your BMI is not within the obesity range.
+                    This means that you are not eligible for our programme at this time. However,
+                    please visit <a href="https://www.nhs.uk/better-health/">NHS Better Health</a>
+                    for all the latest advice, tools and apps to help you continue your health
+                    and wellbeing journey today.
+                    </p>
+                    <p>If you have answered this question incorrectly please 'Go back' and correct your height/weight, otherwise select 'End referral'.</p>
+                    <p>
+                        <input type="submit" value="End referral" class="nhsuk-button nhsuk-u-margin-right-2" />
+                        <a class="nhsuk-button nhsuk-button--secondary" asp-action="height" asp-controller="SelfReferral">Go back</a>
+                    </p>
+                    <input asp-for="NonEligibiltyReason" hidden />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

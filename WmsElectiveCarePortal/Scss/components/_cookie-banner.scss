@@ -1,0 +1,105 @@
+﻿/// <reference path="../../node_modules/nhsuk-frontend/packages/core/settings/all.scss" />
+/// <reference path="../../node_modules/nhsuk-frontend/packages/core/tools/all.scss" />
+/* ==========================================================================
+   Components/ cookie-banner
+   ========================================================================== */
+/**
+ * This page contains all the additional styling used for the cookie banner
+ */
+
+#nhsuk-cookie-banner {
+  .nhsuk-cookie-banner {
+    background: white;
+    position: relative;
+    box-shadow: 0 0 4px 0 $color_nhsuk-black;
+    padding: 24px 0 19px;
+    width: 100%;
+    z-index: 1;
+  }
+
+  h2 {
+    @include nhsuk-responsive-margin(4, 'bottom');
+    display: block;
+    font-weight: $nhsuk-font-bold;
+    color: $nhsuk-text-color;
+    margin-top: 0;
+    font-size: 18px;
+    line-height: 1.125;
+
+    @media (min-width: 40.0625em) {
+      font-size: 22px;
+      line-height: 1.375;
+    }
+  }
+
+  p {
+    @include nhsuk-responsive-margin(4, 'bottom');
+    display: block;
+    margin-top: 0;
+    font-size: 16px;
+    line-height: 1.5;
+
+    @media (min-width: 40.0625em) {
+      font-size: 19px;
+      line-height: 1.47368;
+    }
+  }
+
+  a {
+    font-weight: normal;
+  }
+
+  $button-shadow-size: 4px;
+
+  .nhsuk-button {
+    @include nhsuk-responsive-margin(2, 'bottom', $adjustment: $button-shadow-size);
+    display: inline-block;
+    vertical-align: top;
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.5;
+
+    @media (min-width: 40.0625em) {
+      font-size: 19px;
+      line-height: 1.47368;
+    }
+  }
+
+  ul, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  @include mq($from: desktop) {
+    li {
+      display: inline;
+      margin-right: 20px;
+    }
+  }
+
+  .nhsuk-success-banner {
+    background-color: $color_nhsuk-green;
+    color: $color_nhsuk-white;
+    padding: 8px 0 8px 0;
+    position: relative;
+
+    p {
+      margin: 0;
+    }
+
+    a,
+    a:visited {
+      color: $color_nhsuk-white;
+    }
+
+    a:hover,
+    a:focus {
+      color: $color_nhsuk-black;
+    }
+  }
+
+  .cookie-display-none {
+    display: none;
+  }
+}
